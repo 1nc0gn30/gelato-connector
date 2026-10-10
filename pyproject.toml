@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gelato-connector"
+version = "1.0.0"
+description = "Gelato Open API v2 Connector, Localized Multi-Country POD Router, & Antigravity MCP Suite"
+readme = "README.md"
+authors = [{ name = "Neal Frazier Tech", email = "contact@nullai.tech" }]
+license = { text = "Proprietary" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+gelato-connector = "gelato_connector.cli:main"

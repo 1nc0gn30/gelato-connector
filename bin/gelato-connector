@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+"""Gelato Connector Executable Launcher.
+
+Engineered by Neal Frazier Tech (@1nc0gn30) • NullAI Platform.
+100% Python Standard Library — Zero External Runtime Dependencies.
+"""
+
+import os
+import sys
+
+# Add src to sys.path
+root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+src_dir = os.path.join(root_dir, "src")
+if src_dir not in sys.path:
+    sys.path.insert(0, src_dir)
+
+from gelato_connector.cli import main
+
+if __name__ == "__main__":
+    main()

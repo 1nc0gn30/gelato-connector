@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gelato Connector — Autonomous Localized Multi-Country Print-on-Demand Router</title>
+  <meta name="description" content="Autonomous zero-dependency Gelato Open API v2 connector, localized 32-country print routing optimizer, multi-currency margin engine, and Antigravity MCP suite.">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <!-- OpenGraph Meta Tags -->
+  <meta property="og:title" content="Gelato Connector — Localized Multi-Country Print-on-Demand Router">
+  <meta property="og:description" content="Autonomous zero-dependency Gelato Open API connector, localized 32-country routing, and multi-currency margin engine.">
+  <meta property="og:url" content="https://gelato.nullai.tech/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://gelato.nullai.tech/assets/favicon.svg">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@1nc0gn30">
+  <meta name="twitter:creator" content="@1nc0gn30">
+  <meta name="twitter:title" content="Gelato Connector — Localized Multi-Country Print-on-Demand Router">
+  <meta name="twitter:description" content="Unified Gelato Open API v2 client, localized 32-country routing optimizer, and Antigravity MCP suite. 100% Python standard library.">
+  <meta name="twitter:image" content="https://gelato.nullai.tech/assets/favicon.svg">
+
+  <!-- AEO & SEO Schema.org Graph -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Gelato Connector",
+        "url": "https://gelato.nullai.tech/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Linux, macOS, Windows",
+        "offers": {
+          "@type": "Offer",
+          "price": "19.00",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://buy.stripe.com/7sI7sA8hM2X8eFG8ww"
+        },
+        "creator": {
+          "@type": "Organization",
+          "name": "Neal Frazier Tech",
+          "url": "https://nullai.tech"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Gelato Connector and how does localized print-on-demand work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Gelato Connector is an autonomous zero-dependency bridge to the Gelato Open API v2. When an order is placed, Gelato routes production to the nearest local print facility across 32 countries (e.g. US, Germany, UK, Australia), eliminating customs duties, slashing cross-border freight costs, and cutting carbon emissions by up to 67%."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What products are available through Gelato Connector?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Gelato specializes in museum-grade acrylic glass prints, brushed aluminum Dibond wall art, wooden framed canvas wraps, Stanley/Stella organic cotton garments, ceramic and enamel mugs, and hardcover photo journals."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Gelato Connector require external pip libraries or cloud dependencies?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The entire connector is built 100% on the Python 3.10+ standard library with zero external pip packages. It runs completely locally on port 8116 with zero telemetry leaks."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- HIGH-CONVERTING SALES FUNNEL BANNER -->
+    <aside class="sales-banner" aria-label="Special Launch Offer">
+      <div class="sales-banner-left">
+        <span class="founding-badge">FOUNDING ACCESS</span>
+        <div class="sales-banner-text">
+          <strong>Autonomous Gelato Router:</strong> <span class="price-strike">$79</span> <span class="price-current">$19 Lifetime</span> • 32-country local routing, museum-grade wall art, and duty optimization.
+        </div>
+      </div>
+      <div class="sales-banner-right">
+        <a href="https://buy.stripe.com/7sI7sA8hM2X8eFG8ww" target="_blank" rel="noopener" class="btn btn-primary" aria-label="Purchase Pro with Stripe">
+          <span>💳 Stripe Checkout ($19)</span>
+        </a>
+        <button type="button" class="btn btn-solana" onclick="openPaywallModal('DePay Solana Checkout')" aria-label="Purchase Pro with Solana">
+          <span>⚡ Solana DePay</span>
+        </button>
+        <button type="button" class="btn-link" onclick="openPaywallModal('Enter License Key')" aria-label="Activate License Key">
+          Have a key? Activate
+        </button>
+      </div>
+    </aside>
+
+    <!-- HEADER & STATUS -->
+    <header class="header">
+      <div class="brand-wrap">
+        <img src="/assets/favicon.svg" alt="Gelato Connector Localized Routing Diamond Logo" class="brand-icon">
+        <h1 class="brand-title">
+          GELATO CONNECTOR
+          <span class="brand-version">v1.0.0</span>
+        </h1>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <div class="status-badge">
+          <span class="status-dot"></span> 32 LOCAL HUBS ACTIVE
+        </div>
+        <span id="proStatusBadge" class="brand-version" style="background: rgba(0,163,224,0.1); color: var(--azure); border-color: rgba(0,163,224,0.3);">
+          COMMUNITY EDITION
+        </span>
+      </div>
+    </header>
+
+    <!-- MAIN COCKPIT -->
+    <main>
+      
+      <!-- BENTO METRICS -->
+      <section class="bento-grid" aria-label="Gelato Global Routing Metrics">
+        <div class="card col-3">
+          <div class="card-header">
+            <span class="card-title">
+              <span class="card-title-icon">🖼️</span> Museum Wall Art
+            </span>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val val-azure">7 Curated</div>
+            <div class="metric-sub">Acrylic, Aluminum & Wood Canvas</div>
+          </div>
+        </div>
+
+        <div class="card col-3">
+          <div class="card-header">
+            <span class="card-title">
+              <span class="card-title-icon">🌍</span> Local Print Hubs
+            </span>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val val-cyan">32 Countries</div>
+            <div class="metric-sub">US, UK, DE, FR, CA, AU & JP</div>
+          </div>
+        </div>
+
+        <div class="card col-3">
+          <div class="card-header">
+            <span class="card-title">
+              <span class="card-title-icon">🌱</span> Carbon Cut
+            </span>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val val-emerald">-67% CO₂</div>
+            <div class="metric-sub">Zero Cross-Border Airfreight</div>
+          </div>
+        </div>
+
+        <div class="card col-3">
+          <div class="card-header">
+            <span class="card-title">
+              <span class="card-title-icon">🤖</span> MCP Suite
+            </span>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val val-gold">6 Tools</div>
+            <div class="metric-sub">Antigravity Stdio Active</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE TOOL 1: MULTI-CURRENCY MARGIN & LOCAL ROUTING CALCULATOR -->
+      <section class="card col-12" style="margin-bottom: 2rem;" aria-label="Interactive Profit & Margin Simulator">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-title-icon">⚡</span> Multi-Currency Margin & Localized Delivery Engine
+          </h2>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">
+            Zero Fake Work • True 32-Country Domestic Routing
+          </span>
+        </div>
+
+        <div class="bento-grid" style="margin-bottom: 0;">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="prodSelect" class="form-label">Select Gelato Product:</label>
+              <select id="prodSelect" class="form-control text-mono">
+                <option value="acrylic_print_16x24">Acrylic Glass Print 16x24 ($29.50 / €27.20 / £23.40)</option>
+                <option value="aluminum_print_16x24">Brushed Aluminum Dibond Print 16x24 ($26.80 / €24.90 / £21.20)</option>
+                <option value="wooden_framed_canvas_16x24">Framed Wooden Canvas Wrap 16x24 ($24.20 / €22.50 / £19.30)</option>
+                <option value="stanley_stella_organic_tee">Stanley/Stella Organic Cotton Tee ($12.40 / €10.90 / £9.50)</option>
+                <option value="ceramic_mug_15oz">Large Ceramic Accent Mug 15oz ($5.95 / €5.40 / £4.60)</option>
+                <option value="enamel_campfire_mug">Vintage Enamel Campfire Mug 12oz ($7.40 / €6.80 / £5.80)</option>
+                <option value="hardcover_photo_journal">Hardcover Matte Photo Journal A5 ($8.90 / €8.10 / £6.90)</option>
+              </select>
+            </div>
+
+            <div style="display: flex; gap: 1rem;">
+              <div class="form-group" style="flex: 1;">
+                <label for="currencySelect" class="form-label">Pricing Currency:</label>
+                <select id="currencySelect" class="form-control text-mono">
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="flex: 1;">
+                <label for="countrySelect" class="form-label">Customer Country:</label>
+                <select id="countrySelect" class="form-control text-mono">
+                  <option value="US">United States (Domestic)</option>
+                  <option value="DE">Germany (Domestic EU)</option>
+                  <option value="UK">United Kingdom (Domestic)</option>
+                  <option value="CA">Canada (Domestic)</option>
+                  <option value="AU">Australia (Domestic)</option>
+                  <option value="FR">France (Domestic EU)</option>
+                  <option value="NL">Netherlands (Domestic EU)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="retailPrice" class="form-label">Retail Selling Price:</label>
+              <input type="number" id="retailPrice" class="form-control text-mono" value="68.00" step="1.00" min="5">
+            </div>
+
+            <div style="margin-top: 1rem; padding: 0.85rem; background: var(--bg-card-subtle); border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; color: var(--azure); font-size: 0.88rem; display: flex; align-items: center; gap: 0.4rem;">
+                <span>📍 Routing Result:</span> <span id="routingHubName" style="color: #FFF;">Domestic United States Hub</span>
+              </div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem;">
+                Carrier: <strong id="routingCarrier" class="text-mono" style="color:var(--cyan);">USPS / FedEx Ground</strong> • Avg Lead: <strong id="routingLead" class="text-mono" style="color:var(--emerald);">2.2 Days</strong><br>
+                Cross-Border Savings: <strong id="customsSavings" class="text-mono" style="color:var(--gold);">$14.50 Saved (0 Customs Delay)</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="margin-gauge-wrap">
+              <div>
+                <div class="gauge-label">Net Profit Margin</div>
+                <div id="heroMargin" class="gauge-val">53.2%</div>
+                <div id="heroProfit" style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700; color: #FFFFFF; margin-top: 0.25rem;">$31.73</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Net Profit per Sale</div>
+              </div>
+
+              <div style="border-left: 1px solid var(--border-subtle); padding-left: 1.5rem;">
+                <div style="font-size: 0.82rem; margin-bottom: 0.4rem;">Base Production: <strong id="heroBaseCost" class="text-mono" style="color:var(--gold);">$29.50</strong></div>
+                <div style="font-size: 0.82rem; margin-bottom: 0.4rem;">Local Shipping: <strong class="text-mono" style="color:#FFF;">$4.50</strong></div>
+                <div style="font-size: 0.82rem; margin-bottom: 0.4rem;">Total COGS: <strong id="heroCogs" class="text-mono" style="color:var(--ruby);">$34.00</strong></div>
+                <hr style="border: 0; border-top: 1px solid var(--border-subtle); margin: 0.6rem 0;">
+                <div style="font-size: 0.8rem; color: var(--text-muted);">
+                  Etsy Net: <strong id="outEtsyProfit" class="text-mono" style="color:var(--azure);">$27.09</strong> (<span id="outEtsyMargin">39.8%</span>)<br>
+                  Shopify Net: <strong id="outShopifyProfit" class="text-mono" style="color:var(--azure);">$31.73</strong> (<span id="outShopifyMargin">46.7%</span>)<br>
+                  Direct Net: <strong id="outDirectProfit" class="text-mono" style="color:var(--azure);">$33.70</strong> (<span id="outDirectMargin">49.6%</span>)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE TOOL 2: ARTWORK DPI & BLEED AUDITOR -->
+      <section class="card col-12" style="margin-bottom: 2rem;" aria-label="Artwork DPI and Bleed Auditor">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-title-icon">🎯</span> Gelato Museum Print DPI & Bleed Auditor
+          </h2>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">
+            Instant Client-Side Image Analysis • 300+ DPI Guarantee
+          </span>
+        </div>
+
+        <div class="bento-grid">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="auditProdSelect" class="form-label">Target Substrate:</label>
+              <select id="auditProdSelect" class="form-control text-mono">
+                <option value="acrylic_print_16x24">Acrylic Glass Print 16x24 (4800 × 7200 px @ 300 DPI, 3mm Bleed)</option>
+                <option value="aluminum_print_16x24">Brushed Aluminum Dibond 16x24 (4800 × 7200 px @ 300 DPI, 3mm Bleed)</option>
+                <option value="wooden_framed_canvas_16x24">Framed Wood Canvas 16x24 (5100 × 7500 px @ 300 DPI, 5mm Bleed)</option>
+                <option value="stanley_stella_organic_tee">Stanley/Stella Organic Cotton Tee (4000 × 4800 px)</option>
+                <option value="ceramic_mug_15oz">Accent Ceramic Mug 15oz (2850 × 1200 px)</option>
+                <option value="enamel_campfire_mug">Enamel Campfire Mug (2500 × 950 px)</option>
+                <option value="hardcover_photo_journal">Hardcover Photo Journal A5 (3700 × 2600 px)</option>
+              </select>
+            </div>
+
+            <!-- Drag and Drop Dropzone -->
+            <div id="artworkDropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload artwork for instant DPI and bleed inspection">
+              <input type="file" id="artworkFileInput" accept="image/*" style="display: none;">
+              <div style="font-size: 1.75rem; margin-bottom: 0.35rem;">🖼️</div>
+              <strong id="dropzoneText" style="color: var(--azure); font-size: 0.95rem;">Drag & drop artwork here or click to browse</strong>
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem;">
+                Instant in-browser dimension parser. Zero server upload latency.
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+              <div class="form-group" style="flex: 1;">
+                <label for="artWidth" class="form-label">Width (px):</label>
+                <input type="number" id="artWidth" class="form-control text-mono" value="4800" step="100">
+              </div>
+              <div class="form-group" style="flex: 1;">
+                <label for="artHeight" class="form-label">Height (px):</label>
+                <input type="number" id="artHeight" class="form-control text-mono" value="7200" step="100">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.25rem; height: 100%;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div>
+                  <div class="gauge-label">Effective Print Resolution</div>
+                  <div id="effectiveDpiBadge" class="metric-val val-azure">300 DPI</div>
+                </div>
+                <div style="text-align: right;">
+                  <div class="gauge-label">Target Substrate Area</div>
+                  <div id="targetAreaDisplay" class="text-mono" style="font-size: 0.88rem; color: #FFF;">4800 × 7200 px @ 300 DPI (3mm Bleed)</div>
+                </div>
+              </div>
+
+              <div id="qualityGradeText" style="font-weight: 700; color: var(--azure); font-size: 0.9rem; margin-bottom: 0.75rem;">
+                EXCELLENT — Museum Grade Gallery Standard
+              </div>
+
+              <ul id="auditFeedback" style="list-style-type: none; padding-left: 0; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem;">
+                <!-- Dynamically generated audit feedback items -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE TOOL 3: LOCALIZED 32-COUNTRY HUBS MATRIX -->
+      <section class="card col-12" style="margin-bottom: 2rem;" aria-label="Localized Print Hubs Matrix">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-title-icon">🌍</span> Local Manufacturing Hubs & Carrier Matrix
+          </h2>
+          <button type="button" class="btn btn-outline" style="min-height: 32px; padding: 0.25rem 0.65rem; font-size: 0.78rem;" onclick="triggerProAction('export_hubs')">
+            📥 Export Hubs CSV (Pro)
+          </button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Country Hub</th>
+                <th>Routing Status</th>
+                <th>Avg Production</th>
+                <th>Local Carrier</th>
+                <th>Base Domestic Shipping</th>
+              </tr>
+            </thead>
+            <tbody id="hubsTbody">
+              <!-- Rendered dynamically from LOCAL_HUBS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TOOL 4: GELATO ORDER PAYLOAD GENERATOR -->
+      <section class="card col-12" style="margin-bottom: 2rem;" aria-label="Gelato Order Payload Generator">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-title-icon">📦</span> Schema-Valid Gelato API v2 Order Payload Generator
+          </h2>
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" class="btn btn-outline" style="min-height: 32px; padding: 0.25rem 0.65rem; font-size: 0.78rem;" onclick="triggerProAction('copy_payload')">
+              📋 Copy Payload (Pro)
+            </button>
+          </div>
+        </div>
+
+        <div class="bento-grid" style="margin-bottom: 0;">
+          <div class="col-5">
+            <form id="payloadForm">
+              <div class="form-group">
+                <label for="payloadTitle" class="form-label">Product / Artwork Title:</label>
+                <input type="text" id="payloadTitle" class="form-control" value="Sovereign Botanical Wildflower Impression">
+              </div>
+              <div class="form-group">
+                <label for="payloadArtworkUrl" class="form-label">High-Res Master Image URL (300 DPI):</label>
+                <input type="url" id="payloadArtworkUrl" class="form-control text-mono" value="https://example.com/botanical-master-300dpi.png">
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+                <span>⚡ Regenerate Order Payload</span>
+              </button>
+            </form>
+          </div>
+
+          <div class="col-7">
+            <label class="form-label">Validated Gelato API v2 Order Payload:</label>
+            <pre id="payloadOutput" class="stream-box" style="height: 240px; color: #00A3E0; white-space: pre-wrap;"></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- FROSTED GLASS BLUR PAYWALL (Autonomous Multi-Country Dispatcher) -->
+      <section class="card col-12 paywall-wrapper" aria-labelledby="proTitle" style="margin-top: 1rem;">
+        <div class="card-header">
+          <h2 id="proTitle" class="card-title">
+            <span>🔒 Autonomous Global Smart Order Router & Webhook Dispatcher</span>
+          </h2>
+          <span class="founding-badge">PRO SUITE</span>
+        </div>
+
+        <!-- Blurred Content -->
+        <div class="paywall-blurred">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--bg-card-subtle); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; color: var(--azure);">Planetary Geo-IP Routing Engine</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+                Automatically assigns incoming Etsy and Shopify customer orders to the optimal local factory in 32 nations.
+              </div>
+            </div>
+            <div style="background: var(--bg-card-subtle); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; color: var(--gold);">VAT & Customs Duty Eliminator</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+                Guarantees zero import fees for EU and UK buyers by fulfilling directly within European customs borders.
+              </div>
+            </div>
+            <div style="background: var(--bg-card-subtle); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; color: var(--emerald);">Live Multi-Store Webhook Dispatcher</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+                Synchronizes order confirmations, package tracking numbers, and live fulfillment status across all channels.
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="triggerProAction('global_router')">
+            Download Complete Gelato Global Dispatch Bundle
+          </button>
+        </div>
+
+        <!-- Lock Overlay -->
+        <div class="paywall-overlay">
+          <div class="paywall-icon">🔐</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #FFFFFF;">Unlock Gelato Pro Global Automation</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+            Gain full access to the 32-country geo-router, automatic VAT eliminator, and live order tracking webhooks.
+          </p>
+          <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+            <a href="https://buy.stripe.com/7sI7sA8hM2X8eFG8ww" target="_blank" rel="noopener" class="btn btn-primary">
+              💳 Unlock with Stripe ($19)
+            </a>
+            <button type="button" class="btn btn-solana" onclick="openPaywallModal('DePay Solana Checkout')">
+              ⚡ Pay with Solana
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>
+        Engineered by <strong>Neal Frazier Tech</strong> (<a href="https://github.com/1nc0gn30" target="_blank" rel="noopener">@1nc0gn30</a>) • <a href="https://nullai.tech" target="_blank" rel="noopener">NullAI Platform</a>
+      </div>
+      <div>
+        Direct: <a href="https://github.com/1nc0gn30/gelato-connector" target="_blank" rel="noopener">GitHub Repository</a> • Port 8116
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- PRO PAYWALL MODAL -->
+  <div id="paywallModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+    <div class="modal-card">
+      <button type="button" class="modal-close" onclick="closePaywallModal()" aria-label="Close dialog">×</button>
+      <h3 id="modalHeading" style="font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="color: var(--gold);">★</span> Gelato Pro Sovereign License
+      </h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        Instant lifetime access. Unlocks all export tools, automated 32-country webhooks, and localized router scripts.
+      </p>
+
+      <ul style="list-style-type: none; padding-left: 0; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-main);">
+        <li style="margin-bottom: 0.4rem;">✅ 1-Click Gelato API v2 Order Payloads</li>
+        <li style="margin-bottom: 0.4rem;">✅ Localized Production Routing Across 32 Countries</li>
+        <li style="margin-bottom: 0.4rem;">✅ Multi-Currency Profit Margin Engine (USD, EUR, GBP)</li>
+        <li style="margin-bottom: 0.4rem;">✅ Client-Side Acrylic & Canvas DPI / Bleed Validator</li>
+        <li style="margin-bottom: 0.4rem;">✅ Antigravity MCP Suite with 6 Stdio Automation Tools</li>
+        <li style="margin-bottom: 0.4rem;">✅ 100% Python Standard Library — Zero External Dependencies</li>
+      </ul>
+
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+        <a href="https://buy.stripe.com/7sI7sA8hM2X8eFG8ww" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">
+          💳 Lifetime Pro Access via Stripe ($19)
+        </a>
+        <a href="https://depay.com" target="_blank" rel="noopener" class="btn btn-solana" style="width: 100%;">
+          ⚡ DePay Solana Payment ($19 SOL/USDC)
+        </a>
+      </div>
+
+      <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+        <label for="licenseKeyInput" class="form-label">Already have a license key or receipt email?</label>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="text" id="licenseKeyInput" class="form-control text-mono" placeholder="GELATO-PRO-SOVEREIGN" style="flex: 1;">
+          <button type="button" class="btn btn-outline" onclick="activateKey()">Activate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/gelato_app.js"></script>
+</body>
+</html>

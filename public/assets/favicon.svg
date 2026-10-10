@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="gAzure" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00A3E0" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="gGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="100%" stop-color="#D4AF37" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#08090E" stroke="#1F2937" stroke-width="1.5"/>
+  <!-- Planetary Localized Print Rings -->
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#00A3E0" stroke-width="2" opacity="0.3" stroke-dasharray="4 4"/>
+  <circle cx="32" cy="32" r="15" fill="none" stroke="#0284C7" stroke-width="2" opacity="0.6"/>
+  <!-- Local Hub Nodes -->
+  <circle cx="32" cy="17" r="3.5" fill="url(#gGold)"/>
+  <circle cx="45" cy="38" r="3" fill="#00A3E0"/>
+  <circle cx="19" cy="38" r="3" fill="#00A3E0"/>
+  <!-- Core Printing Diamond -->
+  <path d="M32 23 L41 32 L32 41 L23 32 Z" fill="url(#gAzure)" />
+  <circle cx="32" cy="32" r="3" fill="#FFFFFF"/>
+</svg>
