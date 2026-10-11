@@ -5,14 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gelato Connector — Autonomous Localized Multi-Country Print-on-Demand Router</title>
   <meta name="description" content="Autonomous zero-dependency Gelato Open API v2 connector, localized 32-country print routing optimizer, multi-currency margin engine, and Antigravity MCP suite.">
-  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/icon.png">
+  <link rel="apple-touch-icon" href="/assets/icon.png">
+  <link rel="canonical" href="https://gelato.nullai.tech/">
 
   <!-- OpenGraph Meta Tags -->
   <meta property="og:title" content="Gelato Connector — Localized Multi-Country Print-on-Demand Router">
   <meta property="og:description" content="Autonomous zero-dependency Gelato Open API connector, localized 32-country routing, and multi-currency margin engine.">
   <meta property="og:url" content="https://gelato.nullai.tech/">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://gelato.nullai.tech/assets/favicon.svg">
+  <meta property="og:image" content="https://gelato.nullai.tech/assets/banner.png">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
@@ -20,7 +24,9 @@
   <meta name="twitter:creator" content="@1nc0gn30">
   <meta name="twitter:title" content="Gelato Connector — Localized Multi-Country Print-on-Demand Router">
   <meta name="twitter:description" content="Unified Gelato Open API v2 client, localized 32-country routing optimizer, and Antigravity MCP suite. 100% Python standard library.">
-  <meta name="twitter:image" content="https://gelato.nullai.tech/assets/favicon.svg">
+  <meta name="twitter:image" content="https://gelato.nullai.tech/assets/banner.png">
+
+  <script src="https://integrate.depay.com/widgets/v13.js" defer></script>
 
   <!-- AEO & SEO Schema.org Graph -->
   <script type="application/ld+json">
@@ -100,10 +106,10 @@
         <a href="https://buy.stripe.com/7sI7sA8hM2X8eFG8ww" target="_blank" rel="noopener" class="btn btn-primary" aria-label="Purchase Pro with Stripe">
           <span>💳 Stripe Checkout ($19)</span>
         </a>
-        <button type="button" class="btn btn-solana" onclick="openPaywallModal('DePay Solana Checkout')" aria-label="Purchase Pro with Solana">
+        <button id="btn-depay-solana" type="button" class="btn btn-solana btn-depay-trigger" data-depay aria-label="Purchase Pro with Solana">
           <span>⚡ Solana DePay</span>
         </button>
-        <button type="button" class="btn-link" onclick="openPaywallModal('Enter License Key')" aria-label="Activate License Key">
+        <button id="btn-open-license-modal" type="button" class="btn-link" onclick="openPaywallModal('Enter License Key')" aria-label="Activate License Key">
           Have a key? Activate
         </button>
       </div>
@@ -112,7 +118,7 @@
     <!-- HEADER & STATUS -->
     <header class="header">
       <div class="brand-wrap">
-        <img src="/assets/favicon.svg" alt="Gelato Connector Localized Routing Diamond Logo" class="brand-icon">
+        <img src="/assets/icon.png" alt="Gelato Connector Localized Routing Diamond Logo" width="32" height="32" class="brand-icon">
         <h1 class="brand-title">
           GELATO CONNECTOR
           <span class="brand-version">v1.0.0</span>
@@ -120,11 +126,14 @@
       </div>
 
       <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <button id="btn-header-key" type="button" class="btn btn-outline" style="min-height: 32px; padding: 0.25rem 0.65rem; font-size: 0.78rem;">
+          Enter Key
+        </button>
         <div class="status-badge">
           <span class="status-dot"></span> 32 LOCAL HUBS ACTIVE
         </div>
-        <span id="proStatusBadge" class="brand-version" style="background: rgba(0,163,224,0.1); color: var(--azure); border-color: rgba(0,163,224,0.3);">
-          COMMUNITY EDITION
+        <span id="pro-badge" class="brand-version badge-free">
+          FREE TIER
         </span>
       </div>
     </header>
@@ -353,7 +362,7 @@
           <h2 class="card-title">
             <span class="card-title-icon">🌍</span> Local Manufacturing Hubs & Carrier Matrix
           </h2>
-          <button type="button" class="btn btn-outline" style="min-height: 32px; padding: 0.25rem 0.65rem; font-size: 0.78rem;" onclick="triggerProAction('export_hubs')">
+          <button id="btn-export-hubs" type="button" class="btn btn-outline" style="min-height: 32px; padding: 0.25rem 0.65rem; font-size: 0.78rem;" onclick="triggerProAction('export_hubs')">
             📥 Export Hubs CSV (Pro)
           </button>
         </div>
@@ -383,7 +392,7 @@
             <span class="card-title-icon">📦</span> Schema-Valid Gelato API v2 Order Payload Generator
           </h2>
           <div style="display: flex; gap: 0.5rem;">
-            <button type="button" class="btn btn-outline" style="min-height: 32px; padding: 0.25rem 0.65rem; font-size: 0.78rem;" onclick="triggerProAction('copy_payload')">
+            <button id="btn-copy-payload" type="button" class="btn btn-outline" style="min-height: 32px; padding: 0.25rem 0.65rem; font-size: 0.78rem;" onclick="triggerProAction('copy_payload')">
               📋 Copy Payload (Pro)
             </button>
           </div>
@@ -424,7 +433,7 @@
 
         <!-- Blurred Content -->
         <div class="paywall-blurred">
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="pro-features-grid">
             <div style="background: var(--bg-card-subtle); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--border-subtle);">
               <div style="font-weight: 700; color: var(--azure);">Planetary Geo-IP Routing Engine</div>
               <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
@@ -444,7 +453,7 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary" onclick="triggerProAction('global_router')">
+          <button id="btn-global-router" type="button" class="btn btn-primary" onclick="triggerProAction('global_router')">
             Download Complete Gelato Global Dispatch Bundle
           </button>
         </div>
@@ -460,8 +469,11 @@
             <a href="https://buy.stripe.com/7sI7sA8hM2X8eFG8ww" target="_blank" rel="noopener" class="btn btn-primary">
               💳 Unlock with Stripe ($19)
             </a>
-            <button type="button" class="btn btn-solana" onclick="openPaywallModal('DePay Solana Checkout')">
+            <button id="btn-depay-paywall" type="button" class="btn btn-solana btn-depay-trigger" data-depay onclick="openPaywallModal('DePay Solana Checkout')">
               ⚡ Pay with Solana
+            </button>
+            <button id="btn-unlock-paywall" type="button" class="btn btn-outline" onclick="openPaywallModal('Enter License Key')">
+              Enter License Key
             </button>
           </div>
         </div>
@@ -482,9 +494,9 @@
   </div>
 
   <!-- PRO PAYWALL MODAL -->
-  <div id="paywallModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+  <div id="paywall-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
     <div class="modal-card">
-      <button type="button" class="modal-close" onclick="closePaywallModal()" aria-label="Close dialog">×</button>
+      <button id="modal-close-btn" type="button" class="modal-close" onclick="closePaywallModal()" aria-label="Close dialog">×</button>
       <h3 id="modalHeading" style="font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
         <span style="color: var(--gold);">★</span> Gelato Pro Sovereign License
       </h3>
@@ -502,20 +514,21 @@
       </ul>
 
       <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
-        <a href="https://buy.stripe.com/7sI7sA8hM2X8eFG8ww" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">
+        <a href="https://buy.stripe.com/7sI7sA8hM2X8eFG8ww" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%; text-align: center; justify-content: center;">
           💳 Lifetime Pro Access via Stripe ($19)
         </a>
-        <a href="https://depay.com/pay?integration=428790dd-7ad1-407c-8ecf-c048c77a4cb8&receiver=GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK&amount=19" target="_blank" rel="noopener" class="btn btn-solana" style="width: 100%;">
+        <button id="btn-depay-modal" class="btn btn-solana btn-depay-trigger" data-depay style="width: 100%; justify-content: center;">
           ⚡ DePay Solana Payment ($19 SOL/USDC)
-        </a>
+        </button>
       </div>
 
       <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
-        <label for="licenseKeyInput" class="form-label">Already have a license key or receipt email?</label>
+        <label for="license-key-input" class="form-label">Already have a license key or receipt email?</label>
         <div style="display: flex; gap: 0.5rem;">
-          <input type="text" id="licenseKeyInput" class="form-control text-mono" placeholder="GELATO-PRO-SOVEREIGN" style="flex: 1;">
-          <button type="button" class="btn btn-outline" onclick="activateKey()">Activate</button>
+          <input type="text" id="license-key-input" class="form-control text-mono" placeholder="GELATO-PRO-SOVEREIGN" style="flex: 1;">
+          <button id="btn-activate-key" type="button" class="btn btn-outline" onclick="activateKey()">Activate</button>
         </div>
+        <div id="license-status" style="font-size: 0.82rem; margin-top: 6px; min-height: 18px;"></div>
       </div>
     </div>
   </div>

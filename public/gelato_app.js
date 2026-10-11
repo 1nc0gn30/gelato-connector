@@ -130,14 +130,17 @@ function unlockProMode(saveStorage = true) {
   isProActive = true;
   if (saveStorage) localStorage.setItem("gelato_pro_licensed", "true");
 
-  const badge = document.getElementById("proStatusBadge");
+  const badge = document.getElementById("pro-badge") || document.getElementById("proStatusBadge");
   if (badge) {
     badge.innerText = "⭐ PRO ACTIVE";
+    badge.classList.remove("badge-free");
+    badge.classList.add("badge-pro");
     badge.style.background = "rgba(212, 175, 55, 0.2)";
     badge.style.color = "var(--gold)";
     badge.style.borderColor = "var(--gold)";
   }
 
+  document.body.classList.add("licensed", "pro-unlocked");
   document.querySelectorAll(".paywall-wrapper").forEach(w => w.classList.add("pro-unlocked"));
   closePaywallModal();
 }
@@ -190,6 +193,43 @@ function setupEventListeners() {
       generateOrderPayload();
     });
   }
+
+  // Header key button
+  const btnHeaderKey = document.getElementById("btn-header-key");
+  if (btnHeaderKey) {
+    btnHeaderKey.addEventListener("click", () => openPaywallModal("Header Key Button"));
+  }
+
+  // Paywall unlock button
+  const btnUnlockPaywall = document.getElementById("btn-unlock-paywall");
+  if (btnUnlockPaywall) {
+    btnUnlockPaywall.addEventListener("click", () => openPaywallModal("Paywall Overlay"));
+  }
+
+  // Modal backdrop click
+  const modal = document.getElementById("paywall-modal") || document.getElementById("paywallModal");
+  if (modal) {
+    modal.addEventListener("click", e => {
+      if (e.target === modal) closePaywallModal();
+    });
+  }
+
+  // Key input Enter listener
+  const keyInput = document.getElementById("license-key-input") || document.getElementById("licenseKeyInput");
+  if (keyInput) {
+    keyInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        activateKey();
+      }
+    });
+  }
+
+  window.addEventListener("keydown", e => {
+    if (e.key === "Escape") closePaywallModal();
+  });
+
+  setupDePay();
 }
 
 function handleImageFile(file) {
@@ -376,12 +416,61 @@ function generateOrderPayload() {
 function triggerProAction(actionName) {
   if (isProActive) {
     if (actionName === "copy_payload") {
-      const output = document.getElementById("payloadOutput").textContent;
+      const output = document.getElementById("payloadOutput") ? document.getElementById("payloadOutput").textContent : "";
       navigator.clipboard.writeText(output).then(() => {
+        const btn = document.getElementById("btn-copy-payload");
+        if (btn) {
+          const orig = btn.innerHTML;
+          btn.innerHTML = "✅ Copied to Clipboard!";
+          setTimeout(() => { btn.innerHTML = orig; }, 2000);
+        } else {
+          alert("✅ Gelato Order Creation Payload copied to clipboard!");
+        }
+      }).catch(() => {
         alert("✅ Gelato Order Creation Payload copied to clipboard!");
       });
+    } else if (actionName === "export_hubs") {
+      let csv = "Country Code,Country Name,Currency,Lead Time,Local Carrier,Domestic Shipping Cost\n";
+      Object.keys(HUBS).forEach(code => {
+        const h = HUBS[code];
+        csv += `"${code}","${h.country}","${h.currency}","${h.lead}","${h.carrier}",${h.cost}\n`;
+      });
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "gelato_local_hubs_matrix.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } else if (actionName === "global_router") {
+      const bundle = {
+        name: "Gelato Pro Sovereign Global Dispatch Bundle",
+        version: "1.0.0",
+        author: "Neal Frazier Tech (@1nc0gn30)",
+        engine: "Gelato Localized Production & Smart Dispatch",
+        hubs_active: Object.keys(HUBS).length,
+        supported_countries: Object.keys(HUBS),
+        routing_rules: [
+          { zone: "US", carrier: "USPS/FedEx", duties: "0% Domestic" },
+          { zone: "EU", carrier: "DHL/PostNL", duties: "0% Domestic (Intra-EU)" },
+          { zone: "UK", carrier: "Royal Mail", duties: "0% Domestic" },
+          { zone: "APAC", carrier: "Australia Post", duties: "0% Domestic" }
+        ],
+        hubs: HUBS
+      };
+      const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "gelato_global_router_bundle.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     } else {
-      alert(`✅ Action '${actionName}' executed successfully!`);
+      alert(`✅ Pro Action '${actionName}' executed successfully!`);
     }
   } else {
     openPaywallModal(`Pro Feature: ${actionName}`);
@@ -389,23 +478,80 @@ function triggerProAction(actionName) {
 }
 
 function openPaywallModal(context = "") {
-  const modal = document.getElementById("paywallModal");
-  if (modal) modal.style.display = "flex";
+  const modal = document.getElementById("paywall-modal") || document.getElementById("paywallModal");
+  if (modal) {
+    modal.classList.add("is-open");
+    modal.style.display = "flex";
+  }
 }
 
 function closePaywallModal() {
-  const modal = document.getElementById("paywallModal");
-  if (modal) modal.style.display = "none";
+  const modal = document.getElementById("paywall-modal") || document.getElementById("paywallModal");
+  if (modal) {
+    modal.classList.remove("is-open");
+    modal.style.display = "none";
+  }
 }
 
 function activateKey() {
-  const input = document.getElementById("licenseKeyInput");
+  const input = document.getElementById("license-key-input") || document.getElementById("licenseKeyInput");
+  const statusEl = document.getElementById("license-status");
   const key = input ? input.value.trim() : "";
+
+  if (!key) {
+    if (statusEl) {
+      statusEl.style.color = "var(--ruby)";
+      statusEl.innerText = "Please enter a valid license key or receipt email.";
+    } else {
+      alert("Please enter a valid license key or receipt email.");
+    }
+    return;
+  }
 
   if (key.length >= 6) {
     unlockProMode(true);
-    alert("🎉 Sovereign Gelato Pro License Activated Successfully!");
+    if (statusEl) {
+      statusEl.style.color = "var(--emerald)";
+      statusEl.innerText = "⭐ Sovereign Gelato Pro License Activated Successfully!";
+    }
   } else {
-    alert("Invalid license key. Please check your receipt.");
+    if (statusEl) {
+      statusEl.style.color = "var(--ruby)";
+      statusEl.innerText = "Invalid license key (minimum 6 characters required).";
+    } else {
+      alert("Invalid license key (minimum 6 characters required).");
+    }
   }
+}
+
+function setupDePay() {
+  document.querySelectorAll(".btn-depay-trigger").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      if (window.DePayButtons) return;
+      if (window.DePay) {
+        try {
+          window.DePay.Payment({
+            accept: [
+              {
+                blockchain: 'solana',
+                token: '11111111111111111111111111111111',
+                receiver: 'GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK',
+                amount: 19
+              }
+            ]
+          });
+          return;
+        } catch (err) {
+          console.warn("DePay invocation fallback:", err);
+        }
+      }
+      const solReceiver = "GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK";
+      navigator.clipboard.writeText(solReceiver).then(() => {
+        alert(`⚡ DePay Solana Receiver copied to clipboard:\n${solReceiver}\n\nTransfer $19 SOL or USDC and enter your tx hash or receipt email as your license key.`);
+      }).catch(() => {
+        alert(`⚡ DePay Solana Receiver:\n${solReceiver}\n\nTransfer $19 SOL or USDC and enter your tx hash or receipt email as your license key.`);
+      });
+    });
+  });
 }

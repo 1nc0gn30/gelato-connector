@@ -226,6 +226,22 @@ body::before {
   border: 1px solid var(--border-subtle);
   padding: 0.2rem 0.5rem;
   border-radius: 999px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+
+.badge-free {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-dim);
+  border: 1px solid var(--border-subtle);
+}
+
+.badge-pro {
+  background: rgba(212, 175, 55, 0.2) !important;
+  color: var(--gold) !important;
+  border: 1px solid var(--gold) !important;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
 }
 
 .status-badge {
@@ -266,7 +282,9 @@ body::before {
 
 .col-3 { grid-column: span 3; }
 .col-4 { grid-column: span 4; }
+.col-5 { grid-column: span 5; }
 .col-6 { grid-column: span 6; }
+.col-7 { grid-column: span 7; }
 .col-8 { grid-column: span 8; }
 .col-12 { grid-column: span 12; }
 
@@ -415,6 +433,8 @@ body::before {
   line-height: 1.5;
   overflow-y: auto;
   max-height: 380px;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 /* Data Table */
@@ -506,6 +526,10 @@ body::before {
   padding: 1rem;
 }
 
+.modal-backdrop.is-open {
+  display: flex !important;
+}
+
 .modal-card {
   background: var(--bg-card);
   border: 1px solid var(--azure);
@@ -526,6 +550,13 @@ body::before {
   color: var(--text-muted);
   font-size: 1.4rem;
   cursor: pointer;
+}
+
+.pro-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Footer */
@@ -554,11 +585,14 @@ body::before {
 @media (max-width: 1024px) {
   .col-3 { grid-column: span 6; }
   .col-4 { grid-column: span 6; }
+  .col-5 { grid-column: span 12; }
+  .col-7 { grid-column: span 12; }
   .col-8 { grid-column: span 12; }
 }
 
 @media (max-width: 768px) {
-  .col-3, .col-4, .col-6, .col-8, .col-12 { grid-column: span 12; }
+  .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-12 { grid-column: span 12; }
+  .pro-features-grid { grid-template-columns: 1fr; }
   .sales-banner { flex-direction: column; align-items: flex-start; }
   .sales-banner-right { width: 100%; justify-content: flex-start; }
   .header { flex-direction: column; align-items: flex-start; }
