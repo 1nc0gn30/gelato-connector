@@ -95,7 +95,7 @@
   <div class="container">
     
     <!-- HIGH-CONVERTING SALES FUNNEL BANNER -->
-    <aside class="sales-banner" aria-label="Special Launch Offer">
+    <aside id="salesBanner" class="sales-banner" aria-label="Special Launch Offer">
       <div class="sales-banner-left">
         <span class="founding-badge">FOUNDING ACCESS</span>
         <div class="sales-banner-text">
@@ -121,19 +121,19 @@
         <img src="/assets/icon.png" alt="Gelato Connector Localized Routing Diamond Logo" width="32" height="32" class="brand-icon">
         <h1 class="brand-title">
           GELATO CONNECTOR
-          <span class="brand-version">v1.0.0</span>
+          <span class="brand-version">v2.5 SOVEREIGN</span>
         </h1>
       </div>
 
       <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
-        <button id="btn-header-key" type="button" class="btn btn-outline" style="min-height: 32px; padding: 0.25rem 0.65rem; font-size: 0.78rem;">
+        <button id="btn-header-key" type="button" class="btn btn-outline" style="min-height: 32px; padding: 0.25rem 0.65rem; font-size: 0.78rem;" onclick="openPaywallModal('Header Key Button')">
           Enter Key
         </button>
         <div class="status-badge">
           <span class="status-dot"></span> 32 LOCAL HUBS ACTIVE
         </div>
-        <span id="pro-badge" class="brand-version badge-free">
-          FREE TIER
+        <span id="licenseBadge" data-alias="pro-badge" class="brand-version badge-free">
+          ⚡ FREE TIER
         </span>
       </div>
     </header>
@@ -494,7 +494,7 @@
   </div>
 
   <!-- PRO PAYWALL MODAL -->
-  <div id="paywall-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+  <div id="paywall-modal" data-alias="licenseModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
     <div class="modal-card">
       <button id="modal-close-btn" type="button" class="modal-close" onclick="closePaywallModal()" aria-label="Close dialog">×</button>
       <h3 id="modalHeading" style="font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
@@ -526,7 +526,7 @@
         <label for="license-key-input" class="form-label">Already have a license key or receipt email?</label>
         <div style="display: flex; gap: 0.5rem;">
           <input type="text" id="license-key-input" class="form-control text-mono" placeholder="GELATO-PRO-SOVEREIGN" style="flex: 1;">
-          <button id="btn-activate-key" type="button" class="btn btn-outline" onclick="activateKey()">Activate</button>
+          <button id="btn-activate-key" data-alias="btnActivateKey" type="button" class="btn btn-outline" onclick="activateKey()">Activate</button>
         </div>
         <div id="license-status" style="font-size: 0.82rem; margin-top: 6px; min-height: 18px;"></div>
       </div>

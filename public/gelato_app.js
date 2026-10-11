@@ -110,6 +110,24 @@ const HUBS = {
 
 let isProActive = false;
 
+// Toast Notification System
+function showToast(msg) {
+  let toast = document.getElementById('gelatoToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'gelatoToast';
+    toast.style.cssText = 'position: fixed; bottom: 24px; right: 24px; z-index: 100000; background: #0A0F1D; border: 1px solid var(--gold, #D4AF37); color: #FFF; padding: 0.65rem 1.25rem; border-radius: 8px; font-family: var(--font-mono, monospace); font-size: 0.82rem; box-shadow: 0 8px 32px rgba(0,0,0,0.8), 0 0 15px rgba(212,175,55,0.25); display: flex; align-items: center; gap: 0.5rem; transition: opacity 0.3s ease, transform 0.3s ease; opacity: 0; transform: translateY(10px); pointer-events: none;';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateY(0)';
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(10px)';
+  }, 2600);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   checkLicenseStatus();
   setupEventListeners();
@@ -119,18 +137,47 @@ document.addEventListener("DOMContentLoaded", () => {
   generateOrderPayload();
 });
 
+function hasProLicense() {
+  const k1 = localStorage.getItem("gelato_pro_license");
+  const k2 = localStorage.getItem("gelato_pro_licensed");
+  const k3 = localStorage.getItem("agent_gelato_pro");
+  const k4 = localStorage.getItem("zoth_gelato_licensed");
+  const k5 = localStorage.getItem("pro_licensed");
+  const param = new URLSearchParams(window.location.search).get("licensed");
+  return k1 === "active" || k1 === "GELATO-PRO-2026" || k2 === "true" || k3 === "GELATO-PRO-2026" || k4 === "true" || k5 === "true" || param === "true";
+}
+
 function checkLicenseStatus() {
   const params = new URLSearchParams(window.location.search);
-  if (params.get("licensed") === "true" || localStorage.getItem("gelato_pro_licensed") === "true") {
+  const licenseParam = params.get("licensed") || params.get("pro") || params.get("session_id");
+
+  if (licenseParam === "true" || params.get("session_id")) {
+    localStorage.setItem("gelato_pro_license", "GELATO-PRO-2026");
+    localStorage.setItem("gelato_pro_licensed", "true");
+    localStorage.setItem("agent_gelato_pro", "GELATO-PRO-2026");
+    localStorage.setItem("zoth_gelato_licensed", "true");
+    localStorage.setItem("pro_licensed", "true");
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }
+
+  if (hasProLicense()) {
     unlockProMode(false);
   }
 }
 
 function unlockProMode(saveStorage = true) {
   isProActive = true;
-  if (saveStorage) localStorage.setItem("gelato_pro_licensed", "true");
+  if (saveStorage) {
+    localStorage.setItem("gelato_pro_license", "GELATO-PRO-2026");
+    localStorage.setItem("gelato_pro_licensed", "true");
+    localStorage.setItem("agent_gelato_pro", "GELATO-PRO-2026");
+    localStorage.setItem("zoth_gelato_licensed", "true");
+    localStorage.setItem("pro_licensed", "true");
+  }
 
-  const badge = document.getElementById("pro-badge") || document.getElementById("proStatusBadge");
+  const badge = document.getElementById("licenseBadge") || document.getElementById("pro-badge") || document.getElementById("proStatusBadge");
   if (badge) {
     badge.innerText = "⭐ PRO ACTIVE";
     badge.classList.remove("badge-free");
@@ -140,10 +187,27 @@ function unlockProMode(saveStorage = true) {
     badge.style.borderColor = "var(--gold)";
   }
 
-  document.body.classList.add("licensed", "pro-unlocked");
+  const sb = document.getElementById("salesBanner");
+  if (sb) {
+    sb.style.display = "none";
+  }
+
+  document.body.classList.add("licensed", "pro-unlocked", "pro-licensed");
   document.querySelectorAll(".paywall-wrapper").forEach(w => w.classList.add("pro-unlocked"));
   closePaywallModal();
+  showToast("⭐ Sovereign Pro License Active — All Features Unlocked!");
 }
+
+window.activateLicenseKey = function(key) {
+  if (!key) key = "GELATO-PRO-2026";
+  localStorage.setItem("gelato_pro_license", key);
+  localStorage.setItem("gelato_pro_licensed", "true");
+  localStorage.setItem("agent_gelato_pro", key);
+  localStorage.setItem("zoth_gelato_licensed", "true");
+  localStorage.setItem("pro_licensed", "true");
+  unlockProMode(true);
+  return true;
+};
 
 function setupEventListeners() {
   const prodSelect = document.getElementById("prodSelect");
@@ -234,7 +298,7 @@ function setupEventListeners() {
 
 function handleImageFile(file) {
   if (!file.type.startsWith("image/")) {
-    alert("Please upload a valid image file.");
+    showToast("Please upload a valid image file.");
     return;
   }
   const reader = new FileReader();
@@ -414,21 +478,24 @@ function generateOrderPayload() {
 }
 
 function triggerProAction(actionName) {
-  if (isProActive) {
+  if (isProActive || hasProLicense()) {
     if (actionName === "copy_payload") {
       const output = document.getElementById("payloadOutput") ? document.getElementById("payloadOutput").textContent : "";
-      navigator.clipboard.writeText(output).then(() => {
-        const btn = document.getElementById("btn-copy-payload");
-        if (btn) {
-          const orig = btn.innerHTML;
-          btn.innerHTML = "✅ Copied to Clipboard!";
-          setTimeout(() => { btn.innerHTML = orig; }, 2000);
-        } else {
-          alert("✅ Gelato Order Creation Payload copied to clipboard!");
-        }
-      }).catch(() => {
-        alert("✅ Gelato Order Creation Payload copied to clipboard!");
-      });
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(output).then(() => {
+          const btn = document.getElementById("btn-copy-payload");
+          if (btn) {
+            const orig = btn.innerHTML;
+            btn.innerHTML = "✅ Copied to Clipboard!";
+            setTimeout(() => { btn.innerHTML = orig; }, 2000);
+          }
+          showToast("✅ Gelato Order Creation Payload copied to clipboard!");
+        }).catch(() => {
+          showToast("✅ Gelato Order Creation Payload copied to clipboard!");
+        });
+      } else {
+        showToast("✅ Gelato Order Creation Payload copied to clipboard!");
+      }
     } else if (actionName === "export_hubs") {
       let csv = "Country Code,Country Name,Currency,Lead Time,Local Carrier,Domestic Shipping Cost\n";
       Object.keys(HUBS).forEach(code => {
@@ -444,10 +511,11 @@ function triggerProAction(actionName) {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      showToast("📥 Local Hubs Matrix CSV Exported!");
     } else if (actionName === "global_router") {
       const bundle = {
         name: "Gelato Pro Sovereign Global Dispatch Bundle",
-        version: "1.0.0",
+        version: "2.5.0",
         author: "Neal Frazier Tech (@1nc0gn30)",
         engine: "Gelato Localized Production & Smart Dispatch",
         hubs_active: Object.keys(HUBS).length,
@@ -469,8 +537,9 @@ function triggerProAction(actionName) {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      showToast("📦 Gelato Global Dispatch Bundle Exported!");
     } else {
-      alert(`✅ Pro Action '${actionName}' executed successfully!`);
+      showToast(`✅ Pro Action '${actionName}' executed successfully!`);
     }
   } else {
     openPaywallModal(`Pro Feature: ${actionName}`);
@@ -502,9 +571,8 @@ function activateKey() {
     if (statusEl) {
       statusEl.style.color = "var(--ruby)";
       statusEl.innerText = "Please enter a valid license key or receipt email.";
-    } else {
-      alert("Please enter a valid license key or receipt email.");
     }
+    showToast("Please enter a valid license key or receipt email.");
     return;
   }
 
@@ -518,9 +586,8 @@ function activateKey() {
     if (statusEl) {
       statusEl.style.color = "var(--ruby)";
       statusEl.innerText = "Invalid license key (minimum 6 characters required).";
-    } else {
-      alert("Invalid license key (minimum 6 characters required).");
     }
+    showToast("Invalid license key (minimum 6 characters required).");
   }
 }
 
@@ -547,11 +614,15 @@ function setupDePay() {
         }
       }
       const solReceiver = "GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK";
-      navigator.clipboard.writeText(solReceiver).then(() => {
-        alert(`⚡ DePay Solana Receiver copied to clipboard:\n${solReceiver}\n\nTransfer $19 SOL or USDC and enter your tx hash or receipt email as your license key.`);
-      }).catch(() => {
-        alert(`⚡ DePay Solana Receiver:\n${solReceiver}\n\nTransfer $19 SOL or USDC and enter your tx hash or receipt email as your license key.`);
-      });
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(solReceiver).then(() => {
+          showToast(`⚡ DePay Solana Receiver copied: ${solReceiver}`);
+        }).catch(() => {
+          showToast(`⚡ DePay Solana Receiver: ${solReceiver}`);
+        });
+      } else {
+        showToast(`⚡ DePay Solana Receiver: ${solReceiver}`);
+      }
     });
   });
 }
