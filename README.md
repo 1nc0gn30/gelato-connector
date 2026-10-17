@@ -1,5 +1,9 @@
 # Gelato Connector 🌍
 
+> ⚡ **Live Web Application**: [https://gelato-connector.netlify.app](https://gelato-connector.netlify.app)  
+> 💳 **Unlock Pro Lifetime License ($19 One-Time, $0/mo)**: **[Instant Pro Unlock via Stripe](https://buy.stripe.com/4gMfZg9AheOsdhKbcAfw40L)** *(Use promo code `FOUNDER25` for 25% off)*  
+> 🏆 **All-Access Sovereign Pro Bundle (All 44 Tools — $49 Lifetime)**: **[Get All 44 Studios via Stripe](https://buy.stripe.com/eVq14m5k16hW4Le0xWfw40M)**
+
 > Autonomous Gelato Open API v2 Connector, Localized 32-Country Print-on-Demand Router, Multi-Currency Margin Engine, and Antigravity MCP Suite.  
 > **100% Python Standard Library — Zero External Runtime Dependencies.**  
 > Engineered by **Neal Frazier Tech** ([@1nc0gn30](https://github.com/1nc0gn30)) • [NullAI Platform](https://nullai.tech)
