@@ -1,3 +1,9 @@
+<div align="center">
+  <img src="assets/hero-banner.svg" alt="Gelato Connector — Sovereign Architecture Banner" width="100%" />
+</div>
+
+<br />
+
 # Gelato Connector 🌍
 
 > ⚡ **Live Web Application**: [https://gelato-connector.netlify.app](https://gelato-connector.netlify.app)  
