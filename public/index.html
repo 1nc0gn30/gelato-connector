@@ -26,8 +26,6 @@
   <meta name="twitter:description" content="Unified Gelato Open API v2 client, localized 32-country routing optimizer, and Antigravity MCP suite. 100% Python standard library.">
   <meta name="twitter:image" content="https://gelato.nullai.tech/assets/banner.png">
 
-  <script src="https://integrate.depay.com/widgets/v13.js" defer></script>
-
   <!-- AEO & SEO Schema.org Graph -->
   <script type="application/ld+json">
   {
@@ -41,10 +39,10 @@
         "operatingSystem": "Linux, macOS, Windows",
         "offers": {
           "@type": "Offer",
-          "price": "19.00",
+          "price": "0",
           "priceCurrency": "USD",
           "availability": "https://schema.org/InStock",
-          "url": "https://buy.stripe.com/4gMfZg9AheOsdhKbcAfw40L"
+          "url": "https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X"
         },
         "creator": {
           "@type": "Organization",
@@ -86,35 +84,55 @@
   </script>
 
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/wave.css">
+  <link rel="stylesheet" href="/wave-states.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Zoth 100% Open-Access & Buy Us a Coffee Invariant -->
+  <script id="zoth-open-access-init">
+    (function() {
+      try {
+        var keys = ['agent_audiocipher_pro', 'agent_cyber_turtle_pro', 'agent_datamosh_pro', 'agent_nexus3d_pro', 'agent_policy_pro', 'audiocipher_license', 'audiocipher_pro_licensed', 'badge3d_pro_licensed', 'certpath_pro_key', 'certpath_pro_licensed', 'cron_rhythm_pro_key', 'cron_rhythm_pro_licensed', 'cwv-speed-engine_pro_licensed', 'cwv_pro_licensed', 'cyber_turtle_pro_licensed', 'datamosh_pro_licensed', 'deepsearch-research-agent_pro_licensed', 'deepsearch_pro_licensed', 'entropy_studio_licensed', 'envguard-secrets-vault_pro_licensed', 'envguard_pro_license', 'etsy_connector_pro', 'jwt_guard_licensed', 'mdg_pro_licensed', 'neuro_pro_licensed', 'nexus3d_pro_licensed', 'omnipost_pro_key', 'omnipost_pro_licensed', 'osint_pro_licensed', 'payload-entropy-studio_pro_licensed', 'polyglot_pro_licensed', 'pro_licensed', 'promptmaster_pro_licensed', 'promptmaster_pro_active', 'robots-txt-auditor_pro_licensed', 'robots_pro_licensed', 'schema_illustrator_pro_licensed', 'sovereign_pro_licensed', 'subsweep-lead-scanner_pro_licensed', 'subsweep_licensed', 'turtle_pro_licensed', 'ufo_sacred_licensed', 'vector-search-engine_pro_licensed', 'vector_studio_pro_licensed', 'web-security-guard_pro_licensed', 'web_security_guard_licensed', 'yourdigitalspace_pro', 'zela_guide_pro_licensed', 'zoth_ascii_magic_pro', 'zoth_audiocipher_licensed', 'zoth_badge3d_licensed', 'zoth_cyber_turtle_licensed', 'zoth_datamosh_licensed', 'zoth_etsy_licensed', 'zoth_nexus3d_licensed', 'zoth_osint_licensed', 'zoth_policy_licensed', 'zoth_sacred_licensed', 'zoth_ufo_licensed'];
+        for (var i = 0; i < keys.length; i++) {
+          localStorage.setItem(keys[i], 'true');
+        }
+        localStorage.setItem('pm_license_v2', JSON.stringify({ method: 'open_access', ref: 'free_forever', at: '2026-01-01T00:00:00Z' }));
+        window.isPro = true;
+        window.isProLicensed = true;
+      } catch (e) {}
+    })();
+  </script>
+  <style id="zoth-open-access-override">
+    .paywall-overlay, .output-paywall-overlay, #outputPaywallOverlay, #schemaPaywallOverlay,
+    #transformerPaywallOverlay, #proPaywallModal, #licenseModal, #salesBanner, #founding-offer-banner,
+    #funnelHeroBanner, [data-alias="paywallOverlay"], [data-alias="founding-offer-banner"] {
+      display: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    .paywall-wrap #outputPreview, .paywall-wrap #reportContentArea, .paywall-content,
+    .paywall-content.locked, .paywall-wrap.is-locked #outputPreview, .paywall-wrap.locked #outputPreview {
+      filter: none !important;
+      -webkit-filter: none !important;
+      user-select: auto !important;
+      pointer-events: auto !important;
+    }
+  </style>
+
 </head>
 <body>
 
+<div id="zoth-coffee-support-bar" style="background: linear-gradient(90deg, rgba(16,185,129,0.12), rgba(212,175,55,0.14)); border-bottom: 1px solid rgba(212,175,55,0.35); padding: 8px 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; z-index: 9999;">
+  <span style="color: #10B981; font-weight: 800;">✦ 100% FREE &amp; OPEN ACCESS · ZERO PAYWALLS</span>
+  <a href="https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X" target="_blank" rel="noopener noreferrer" style="background: #D4AF37; color: #08080B; padding: 4px 12px; border-radius: 6px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">☕ Buy Us a Coffee (Stripe)</a>
+  <a href="solana:GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK" onclick="if(navigator.clipboard){navigator.clipboard.writeText('GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK');this.textContent='✓ Copied GG2eQb...dXoK!';}" style="background: rgba(20,241,149,0.15); color: #14F195; border: 1px solid rgba(20,241,149,0.45); padding: 4px 12px; border-radius: 6px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">◎ Solana Tip (GG2e...dXoK)</a>
+</div>
+
+
   <div class="container">
     
-    <!-- HIGH-CONVERTING SALES FUNNEL BANNER -->
-    <aside id="salesBanner" class="sales-banner" aria-label="Special Launch Offer">
-      <div class="sales-banner-left">
-        <span class="founding-badge">FOUNDING ACCESS</span>
-        <div class="sales-banner-text">
-          <strong>Autonomous Gelato Router:</strong> <span class="price-strike">$79</span> <span class="price-current">$19 Lifetime</span> • 32-country local routing, museum-grade wall art, and duty optimization.
-        </div>
-      </div>
-      <div class="sales-banner-right">
-        <a href="https://buy.stripe.com/4gMfZg9AheOsdhKbcAfw40L" target="_blank" rel="noopener" class="btn btn-primary" aria-label="Purchase Pro with Stripe">
-          <span>★ Stripe Checkout ($19)</span>
-        </a>
-        <button id="btn-depay-solana" type="button" class="btn btn-solana btn-depay-trigger" data-depay aria-label="Purchase Pro with Solana">
-          <span>⚡ Solana DePay</span>
-        </button>
-        <button id="btn-open-license-modal" type="button" class="btn-link" onclick="openPaywallModal('Enter License Key')" aria-label="Activate License Key">
-          Have a key? Activate
-        </button>
-      </div>
-    </aside>
-
     <!-- HEADER & STATUS -->
     <header class="header">
       <div class="brand-wrap">
@@ -126,14 +144,11 @@
       </div>
 
       <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
-        <button id="btn-header-key" type="button" class="btn btn-outline" style="min-height: 32px; padding: 0.25rem 0.65rem; font-size: 0.78rem;" onclick="openPaywallModal('Header Key Button')">
-          Enter Key
-        </button>
         <div class="status-badge">
           <span class="status-dot"></span> 32 LOCAL HUBS ACTIVE
         </div>
-        <span id="licenseBadge" data-alias="pro-badge" class="brand-version badge-free">
-          ⚡ FREE TIER
+        <span id="licenseBadge" data-alias="pro-badge" class="brand-version" style="background: rgba(16,185,129,0.15); color: #10B981; border: 1px solid rgba(16,185,129,0.35); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">
+          ✦ 100% UNLOCKED
         </span>
       </div>
     </header>
@@ -208,7 +223,7 @@
             <div class="form-group">
               <label for="prodSelect" class="form-label">Select Gelato Product:</label>
               <select id="prodSelect" class="form-control text-mono">
-                <option value="acrylic_print_16x24">Acrylic Glass Print 16x24 ($29.50 / €27.20 / £23.40)</option>
+                <option value="acrylic_print_16x24">Acrylic Glass Print 16x24 (Free (100% Open Access).50 / €27.20 / £23.40)</option>
                 <option value="aluminum_print_16x24">Brushed Aluminum Dibond Print 16x24 ($26.80 / €24.90 / £21.20)</option>
                 <option value="wooden_framed_canvas_16x24">Framed Wooden Canvas Wrap 16x24 ($24.20 / €22.50 / £19.30)</option>
                 <option value="stanley_stella_organic_tee">Stanley/Stella Organic Cotton Tee ($12.40 / €10.90 / £9.50)</option>
@@ -268,7 +283,7 @@
               </div>
 
               <div style="border-left: 1px solid var(--border-subtle); padding-left: 1.5rem;">
-                <div style="font-size: 0.82rem; margin-bottom: 0.4rem;">Base Production: <strong id="heroBaseCost" class="text-mono" style="color:var(--gold);">$29.50</strong></div>
+                <div style="font-size: 0.82rem; margin-bottom: 0.4rem;">Base Production: <strong id="heroBaseCost" class="text-mono" style="color:var(--gold);">Free (100% Open Access).50</strong></div>
                 <div style="font-size: 0.82rem; margin-bottom: 0.4rem;">Local Shipping: <strong class="text-mono" style="color:#FFF;">$4.50</strong></div>
                 <div style="font-size: 0.82rem; margin-bottom: 0.4rem;">Total COGS: <strong id="heroCogs" class="text-mono" style="color:var(--ruby);">$34.00</strong></div>
                 <hr style="border: 0; border-top: 1px solid var(--border-subtle); margin: 0.6rem 0;">
@@ -457,26 +472,6 @@
             Download Complete Gelato Global Dispatch Bundle
           </button>
         </div>
-
-        <!-- Lock Overlay -->
-        <div class="paywall-overlay">
-          <div class="paywall-icon">★</div>
-          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #FFFFFF;">Unlock Gelato Pro Global Automation</h3>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-            Gain full access to the 32-country geo-router, automatic VAT eliminator, and live order tracking webhooks.
-          </p>
-          <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-            <a href="https://buy.stripe.com/4gMfZg9AheOsdhKbcAfw40L" target="_blank" rel="noopener" class="btn btn-primary">
-              ★ Unlock with Stripe ($19)
-            </a>
-            <button id="btn-depay-paywall" type="button" class="btn btn-solana btn-depay-trigger" data-depay onclick="openPaywallModal('DePay Solana Checkout')">
-              ⚡ Pay with Solana
-            </button>
-            <button id="btn-unlock-paywall" type="button" class="btn btn-outline" onclick="openPaywallModal('Enter License Key')">
-              Enter License Key
-            </button>
-          </div>
-        </div>
       </section>
 
     </main>
@@ -491,46 +486,6 @@
       </div>
     </footer>
 
-  </div>
-
-  <!-- PRO PAYWALL MODAL -->
-  <div id="paywall-modal" data-alias="licenseModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
-    <div class="modal-card">
-      <button id="modal-close-btn" type="button" class="modal-close" onclick="closePaywallModal()" aria-label="Close dialog">×</button>
-      <h3 id="modalHeading" style="font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="color: var(--gold);">★</span> Gelato Pro Sovereign License
-      </h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-        Instant lifetime access. Unlocks all export tools, automated 32-country webhooks, and localized router scripts.
-      </p>
-
-      <ul style="list-style-type: none; padding-left: 0; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-main);">
-        <li style="margin-bottom: 0.4rem;">✅ 1-Click Gelato API v2 Order Payloads</li>
-        <li style="margin-bottom: 0.4rem;">✅ Localized Production Routing Across 32 Countries</li>
-        <li style="margin-bottom: 0.4rem;">✅ Multi-Currency Profit Margin Engine (USD, EUR, GBP)</li>
-        <li style="margin-bottom: 0.4rem;">✅ Client-Side Acrylic & Canvas DPI / Bleed Validator</li>
-        <li style="margin-bottom: 0.4rem;">✅ Antigravity MCP Suite with 6 Stdio Automation Tools</li>
-        <li style="margin-bottom: 0.4rem;">✅ 100% Python Standard Library — Zero External Dependencies</li>
-      </ul>
-
-      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
-        <a href="https://buy.stripe.com/4gMfZg9AheOsdhKbcAfw40L" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%; text-align: center; justify-content: center;">
-          ★ Lifetime Pro Access via Stripe ($19)
-        </a>
-        <button id="btn-depay-modal" class="btn btn-solana btn-depay-trigger" data-depay style="width: 100%; justify-content: center;">
-          ⚡ DePay Solana Payment ($19 SOL/USDC)
-        </button>
-      </div>
-
-      <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
-        <label for="license-key-input" class="form-label">Already have a license key or receipt email?</label>
-        <div style="display: flex; gap: 0.5rem;">
-          <input type="text" id="license-key-input" class="form-control text-mono" placeholder="GELATO-PRO-SOVEREIGN" style="flex: 1;">
-          <button id="btn-activate-key" data-alias="btnActivateKey" type="button" class="btn btn-outline" onclick="activateKey()">Activate</button>
-        </div>
-        <div id="license-status" style="font-size: 0.82rem; margin-top: 6px; min-height: 18px;"></div>
-      </div>
-    </div>
   </div>
 
   <script src="/gelato_app.js"></script>

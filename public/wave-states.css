@@ -1,0 +1,291 @@
+/* ==========================================================================
+   GELATO CONNECTOR — WAVE STATE DIAGNOSTICS (wave-states.css)
+   Precision Micro-Interactions, Focus Telemetry, Empty States & Validation
+   Neal Frazier Tech (@1nc0gn30) • NullAI Platform
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VISIBLE FOCUS SYSTEM (:focus-visible)
+   -------------------------------------------------------------------------- */
+
+/* Suppress noisy default focus on pointer click while preserving keyboard accessibility */
+:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Base button keyboard focus aperture */
+.btn:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--azure, #00A3E0);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(0, 163, 224, 0.35);
+}
+
+/* Primary Stripe button focus */
+.btn-primary:focus-visible {
+  outline: 2px solid #38BDF8;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.38);
+}
+
+/* Solana Tip mint focus ring */
+.btn-solana:focus-visible {
+  outline: 2px solid #14F195;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(20, 241, 149, 0.35);
+}
+
+/* Subtle outline button focus */
+.btn-outline:focus-visible {
+  outline: 2px solid var(--azure, #00A3E0);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(0, 163, 224, 0.3);
+}
+
+/* Gold text link button focus */
+.btn-link:focus-visible {
+  outline: 2px solid var(--gold, #D4AF37);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+  border-radius: 4px;
+}
+
+/* Form inputs & select dropdowns */
+.form-control:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--azure, #00A3E0);
+  outline-offset: 1px;
+  border-color: var(--azure, #00A3E0);
+  box-shadow: 0 0 0 3px rgba(0, 163, 224, 0.28);
+}
+
+/* Artwork dropzone keyboard focus */
+.dropzone:focus-visible {
+  outline: 2px solid var(--azure, #00A3E0);
+  outline-offset: 3px;
+  background: rgba(0, 163, 224, 0.08);
+  box-shadow: 0 0 0 4px rgba(0, 163, 224, 0.25);
+}
+
+/* Modal close button focus */
+.modal-close:focus-visible {
+  outline: 2px solid var(--azure, #00A3E0);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Anchor links */
+a:focus-visible {
+  outline: 2px solid var(--azure, #00A3E0);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   2. HOVER & ACTIVE TRANSITIONS
+   -------------------------------------------------------------------------- */
+
+/* Interactive buttons: 140ms micro-elevation */
+.btn {
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 4px 18px var(--azure-glow, rgba(0, 163, 224, 0.4));
+}
+
+.btn-solana:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  box-shadow: 0 4px 18px rgba(20, 241, 149, 0.35);
+}
+
+.btn-outline:hover {
+  border-color: var(--azure, #00A3E0);
+  background: rgba(0, 163, 224, 0.08);
+  color: #FFFFFF;
+}
+
+.btn-link:hover {
+  color: #F5D77F;
+  text-decoration-color: #F5D77F;
+}
+
+/* Tactile press response */
+.btn:active,
+button:active {
+  transform: scale(0.98);
+  filter: brightness(0.95);
+}
+
+/* Card hover: subtle obsidian seam glow without layout disruption */
+.card {
+  transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover {
+  border-color: rgba(0, 163, 224, 0.32);
+}
+
+/* Table row interactive inspection */
+.data-table tbody tr {
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.data-table tbody tr:hover {
+  background: rgba(0, 163, 224, 0.05);
+}
+
+/* Modal close button rotation */
+.modal-close {
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.14s ease;
+}
+
+.modal-close:hover {
+  color: #FFFFFF;
+  transform: rotate(90deg);
+}
+
+.modal-close:active {
+  transform: rotate(90deg) scale(0.9);
+}
+
+/* Brand icon micro-elevation */
+.brand-icon {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-icon:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 20px var(--azure-glow, rgba(0, 163, 224, 0.45));
+}
+
+/* Dropzone hover & active states */
+.dropzone {
+  transition: border-color 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.14s ease;
+}
+
+.dropzone:hover {
+  border-color: var(--azure, #00A3E0);
+  background: rgba(0, 163, 224, 0.08);
+}
+
+.dropzone:active {
+  transform: scale(0.995);
+}
+
+/* Footer link hover */
+.footer a {
+  transition: color 0.14s ease, text-decoration-color 0.14s ease;
+}
+
+.footer a:hover {
+  color: #38BDF8;
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   3. EMPTY STATE PRESENTATION (:empty)
+   -------------------------------------------------------------------------- */
+
+/* Empty audit feedback list */
+#auditFeedback:empty {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+#auditFeedback:empty::before {
+  content: "◈ Select substrate or upload master artwork to run resolution audit...";
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  color: var(--text-dim, #6B7280);
+  font-style: italic;
+  padding: 0.35rem 0;
+}
+
+/* Empty hubs table body */
+#hubsTbody:empty {
+  min-height: 80px;
+}
+
+#hubsTbody:empty::before {
+  content: "Connecting to 32 domestic production hubs...";
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+  color: var(--text-dim, #6B7280);
+  padding: 1.25rem 0.85rem;
+  font-style: italic;
+}
+
+/* Empty order payload stream box */
+#payloadOutput:empty::before {
+  content: "/* Validated Gelato API v2 order payload will stream here... */";
+  font-family: var(--font-mono, monospace);
+  color: var(--text-dim, #6B7280);
+  font-style: italic;
+}
+
+/* Empty license status container */
+#license-status:empty {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. ERROR & INVALID DIAGNOSTIC PRESENTATION (:invalid)
+   -------------------------------------------------------------------------- */
+
+/* Input validation error presentation */
+.form-control:invalid,
+.form-control:user-invalid,
+input:invalid,
+input:user-invalid {
+  border-color: var(--ruby, #EF4444) !important;
+  background-color: rgba(239, 68, 68, 0.06);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.22);
+}
+
+.form-control:invalid:focus-visible,
+.form-control:user-invalid:focus-visible,
+input:invalid:focus-visible,
+input:user-invalid:focus-visible {
+  outline: 2px solid var(--ruby, #EF4444) !important;
+  outline-offset: 1px;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.32) !important;
+}
+
+/* Ruby metric badge pulse on warning/critical resolution */
+.val-ruby {
+  text-shadow: 0 0 12px rgba(239, 68, 68, 0.45);
+}
+
+/* --------------------------------------------------------------------------
+   5. ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transform: none !important;
+  }
+}

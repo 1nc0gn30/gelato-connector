@@ -4,64 +4,43 @@
 
 <br />
 
-# Gelato Connector 🌍
+# 🌍 Gelato Connector for Antigravity & Sovereign AI Agents
 
-> ⚡ **Live Web Application**: [https://gelato-connector.netlify.app](https://gelato-connector.netlify.app)  
-> 💳 **Unlock Pro Lifetime License ($19 One-Time, $0/mo)**: **[Instant Pro Unlock via Stripe](https://buy.stripe.com/4gMfZg9AheOsdhKbcAfw40L)** *(Use promo code `FOUNDER25` for 25% off)*  
-> 🏆 **All-Access Sovereign Pro Bundle (All 44 Tools — $49 Lifetime)**: **[Get All 44 Studios via Stripe](https://buy.stripe.com/eVq14m5k16hW4Le0xWfw40M)**
+> ⚡ **Live Web Application**: [https://gelato.nullai.tech](https://gelato.nullai.tech)  
+> 🏛️ **Zoth Studio Workspace**: [https://zoth.nullai.tech/tools/gelato-connector](https://zoth.nullai.tech/tools/gelato-connector)  
+> 🛡️ **Sovereign Status**: 100% Free & Open-Access · Zero Paywalls · 100% Zero-Egress Compatible
 
-> Autonomous Gelato Open API v2 Connector, Localized 32-Country Print-on-Demand Router, Multi-Currency Margin Engine, and Antigravity MCP Suite.  
-> **100% Python Standard Library — Zero External Runtime Dependencies.**  
-> Engineered by **Neal Frazier Tech** ([@1nc0gn30](https://github.com/1nc0gn30)) • [NullAI Platform](https://nullai.tech)
+[![Audit](https://img.shields.io/badge/guardrail-100%25%20passed-emerald)](https://gelato.nullai.tech)
+[![MCP Protocol](https://img.shields.io/badge/MCP-2024--11--05-blue)](https://modelcontextprotocol.io)
+[![Python](https://img.shields.io/badge/python-3.10%2B-gold)](https://python.org)
+[![Zero Pip](https://img.shields.io/badge/dependencies-0%20external-purple)](https://nullai.tech)
+
+Autonomous **Gelato Open API v2 Connector**, Localized 32-Country Print-on-Demand Router, Multi-Currency Margin Engine, and Antigravity MCP Suite for **Google Antigravity** AI agents and **Zoth Studio v2 / ZothOS Linux 3.3**. Exposes 6 Model Context Protocol (MCP) tools for catalog search, local production routing, multi-currency profit modeling (USD, EUR, GBP), and order payload generation.
 
 ---
 
-## 🌟 Sovereign Capabilities
+## 📖 What It Does
 
-- **Zero-Dependency Architecture**: Built 100% on the Python 3.10+ standard library (`http.server`, `urllib.request`, `json`, `argparse`). Zero external pip packages, zero telemetry leaks.
-- **Localized 32-Country Routing**: Automatically routes production to the nearest local factory in 32 nations (US, UK, Germany, France, Italy, Canada, Australia, Japan), slashing cross-border freight costs and cutting carbon emissions by up to 67%.
-- **Zero Customs Duties**: Eliminates European and UK import duties and VAT clearance delays by printing directly inside domestic borders.
-- **Multi-Currency Margin Engine**: Full formula calculation across USD ($), EUR (€), and GBP (£) for Etsy, Shopify, and Direct Web3 transactions.
+- **Localized 32-Country Production Routing**: Automatically routes manufacturing to the nearest facility in 32 nations (US, UK, Germany, France, Italy, Canada, Australia, Japan), slashing freight costs and cutting carbon emissions by up to 67%.
+- **Zero Customs Duties & Tariffs**: Eliminates European and UK import duties and VAT clearance delays by manufacturing directly within domestic trade borders.
+- **Multi-Currency Margin Simulator**: Full formula profit modeling across USD ($), EUR (€), and GBP (£) for Etsy, Shopify, and Direct transactions.
 - **Museum-Grade Print Auditor**: Validates image dimensions, 300+ DPI resolution, and bleed area tolerances (e.g. 3mm on Acrylic/Aluminum, 5mm on Wood Canvas).
-- **Antigravity MCP Suite**: 6 native JSON-RPC 2.0 tools for Claude, Antigravity, and autonomous AI agents.
-- **Dual Checkout Cash Registers**: Direct Stripe payment link ($19 lifetime founding member pricing) + DePay Solana Widget.
+- **100% Free & Open-Access**: Zero paywalls, zero license locks, zero telemetry leaks.
 
 ---
 
-## 🚀 Quickstart
+## ⚙️ How It Works
 
-### 1. Run the HTTP & REST Daemon
-```bash
-./bin/gelato-connector serve --port 8116
-```
-Visit `http://localhost:8116` in your browser.
-
-### 2. Antigravity MCP Server (Stdio)
-```bash
-./bin/gelato-connector mcp
-```
-
-### 3. CLI Commands
-```bash
-# System status
-./bin/gelato-connector info
-
-# List localized catalog products
-./bin/gelato-connector catalog
-
-# Calculate shipping quote for Germany
-./bin/gelato-connector shipping --product acrylic_print_16x24 --country DE
-
-# Calculate multi-channel margins in EUR
-./bin/gelato-connector margins --product acrylic_print_16x24 --price 68.00 --currency EUR --country DE
-
-# Audit artwork resolution
-./bin/gelato-connector audit --product acrylic_print_16x24 --width 4800 --height 7200
-```
+1. **Standalone Enclave (`127.0.0.1:8116`)**: Powered by `server.py` serving a dark-glassmorphic cockpit with live `/health`, `/api/stats`, `/api/products`, `/api/hubs`, `/api/margins`, and `/api/shipping` endpoints.
+2. **Zoth Studio v2 God-Mode Route**: Deeply integrated into the 71-Tool Sovereign Matrix at `/tools/gelato-connector`.
+3. **ZothOS CLI (`gelato-connector`)**: Native binary installed in `/usr/local/bin` and `~/.local/bin` for automated command-line audits and CI/CD pipelines.
+4. **Antigravity MCP Bridge**: Standard JSON-RPC 2.0 stdio server providing 6 autonomous tools for AI agents.
 
 ---
 
-## 🛠️ MCP Tools
+## ⚡ 6 Model Context Protocol (MCP) Tools
+
+When registered in `~/.gemini/config/mcp_config.json`, Antigravity gains immediate access to:
 
 1. `gelato_search_catalog`: Search Gelato catalog products (acrylic glass, aluminum Dibond, framed canvas, organic tees, mugs, journals).
 2. `gelato_get_shipping_quote`: Calculate localized shipping rates, transit times, and duty savings across 32 countries.
@@ -72,18 +51,43 @@ Visit `http://localhost:8116` in your browser.
 
 ---
 
-## 📜 License & Sovereign Directives
-Engineered by **Neal Frazier Tech** ([@1nc0gn30](https://github.com/1nc0gn30)) • NullAI Platform.
-All rights reserved.
+## 💻 ZothOS CLI & Server Commands
 
-## Network exposure
+```bash
+# Check status and health
+gelato-connector --status
+gelato-connector status
 
-The server binds to `127.0.0.1` by default. To reach it from other devices,
-opt in explicitly with `--host 0.0.0.0` (or set `ZOTH_BIND_HOST=0.0.0.0`; an IP
-in `HOST` is also honoured, a plain hostname is ignored) and only on a trusted
-network.
+# Output telemetry in JSON format
+gelato-connector --json
 
-## Safety
+# List localized catalog products
+gelato-connector catalog
 
-- The browser API only accepts cross-origin requests from `localhost` / `127.0.0.1` pages. POSTs from any other website get `403`, and CORS echoes only local origins (never `*`), so a site you visit can't drive or read this local server. CLI and agent clients (no `Origin` header) are unaffected.
-- `GELATO_API_KEY` is only used in the `X-API-KEY` header. The connector makes read-only calls and builds order payloads locally; it never places orders.
+# Calculate shipping quote and transit time for Germany
+gelato-connector shipping --product acrylic_print_16x24 --country DE
+
+# Calculate multi-channel margins in EUR
+gelato-connector margins --product acrylic_print_16x24 --price 68.00 --currency EUR --country DE
+
+# Audit artwork resolution and bleed
+gelato-connector audit --product acrylic_print_16x24 --width 4800 --height 7200
+
+# Launch standalone workstation server on port 8116
+python3 server.py --port 8116
+```
+
+---
+
+## ☕ Support Neal Frazier Tech & NullAI
+
+Gelato Connector is 100% free, open-source, and sovereign software. If this tool brings you value, consider supporting our ongoing development:
+
+- **☕ Buy Us a Coffee (Stripe)**: [buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X](https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X)
+- **◎ Solana Tip Address**: `GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK`
+
+---
+
+<div align="center">
+  <sub>Engineered by <b>Neal Frazier Tech</b> (<a href="https://github.com/1nc0gn30">@1nc0gn30</a>) &bull; <a href="https://nullai.tech">NullAI Platform</a> &bull; <a href="https://zoth.nullai.tech">Zoth Studio v2</a></sub>
+</div>

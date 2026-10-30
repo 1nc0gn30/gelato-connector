@@ -108,7 +108,7 @@ const HUBS = {
   "NL": { country: "Netherlands", currency: "EUR", symbol: "€", lead: "2.0 Days", carrier: "PostNL", cost: 4.10 }
 };
 
-let isProActive = false;
+let isProActive = true;
 
 // Toast Notification System
 function showToast(msg) {
@@ -138,13 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function hasProLicense() {
-  const k1 = localStorage.getItem("gelato_pro_license");
-  const k2 = localStorage.getItem("gelato_pro_licensed");
-  const k3 = localStorage.getItem("agent_gelato_pro");
-  const k4 = localStorage.getItem("zoth_gelato_licensed");
-  const k5 = localStorage.getItem("pro_licensed");
-  const param = new URLSearchParams(window.location.search).get("licensed");
-  return k1 === "active" || k1 === "GELATO-PRO-2026" || k2 === "true" || k3 === "GELATO-PRO-2026" || k4 === "true" || k5 === "true" || param === "true";
+  return true;
 }
 
 function checkLicenseStatus() {
