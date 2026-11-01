@@ -1,6 +1,6 @@
 """Antigravity MCP JSON-RPC 2.0 Server for Gelato Connector.
 
-Engineered by Neal Frazier Tech (@1nc0gn30) • NullAI Platform.
+Engineered by 1nc0gn30 (@1nc0gn30) • NullAI Platform.
 100% Python Standard Library — Zero External Dependencies.
 """
 

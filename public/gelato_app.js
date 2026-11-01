@@ -1,6 +1,6 @@
 /**
  * Gelato Connector — Avant-Garde Client Application
- * Neal Frazier Tech (@1nc0gn30) • NullAI Platform
+ * 1nc0gn30 (@1nc0gn30) • NullAI Platform
  * 100% In-Browser Working Utility — Zero Fake Work
  */
 
@@ -173,12 +173,12 @@ function unlockProMode(saveStorage = true) {
 
   const badge = document.getElementById("licenseBadge") || document.getElementById("pro-badge") || document.getElementById("proStatusBadge");
   if (badge) {
-    badge.innerText = "⭐ PRO ACTIVE";
+    badge.innerText = "✦ 100% FREE & OPEN ACCESS";
     badge.classList.remove("badge-free");
     badge.classList.add("badge-pro");
-    badge.style.background = "rgba(212, 175, 55, 0.2)";
-    badge.style.color = "var(--gold)";
-    badge.style.borderColor = "var(--gold)";
+    badge.style.background = "rgba(16, 185, 129, 0.15)";
+    badge.style.color = "#10B981";
+    badge.style.borderColor = "rgba(16, 185, 129, 0.35)";
   }
 
   const sb = document.getElementById("salesBanner");
@@ -189,7 +189,9 @@ function unlockProMode(saveStorage = true) {
   document.body.classList.add("licensed", "pro-unlocked", "pro-licensed");
   document.querySelectorAll(".paywall-wrapper").forEach(w => w.classList.add("pro-unlocked"));
   closePaywallModal();
-  showToast("⭐ Sovereign Pro License Active — All Features Unlocked!");
+  if (saveStorage) {
+    showToast("✦ 100% Free & Open Access — All Features Unlocked!");
+  }
 }
 
 window.activateLicenseKey = function(key) {
@@ -287,7 +289,7 @@ function setupEventListeners() {
     if (e.key === "Escape") closePaywallModal();
   });
 
-  setupDePay();
+  setupSolanaTip();
 }
 
 function handleImageFile(file) {
@@ -510,7 +512,7 @@ function triggerProAction(actionName) {
       const bundle = {
         name: "Gelato Pro Sovereign Global Dispatch Bundle",
         version: "2.5.0",
-        author: "Neal Frazier Tech (@1nc0gn30)",
+        author: "1nc0gn30 (@1nc0gn30)",
         engine: "Gelato Localized Production & Smart Dispatch",
         hubs_active: Object.keys(HUBS).length,
         supported_countries: Object.keys(HUBS),
@@ -585,38 +587,6 @@ function activateKey() {
   }
 }
 
-function setupDePay() {
-  document.querySelectorAll(".btn-depay-trigger").forEach(btn => {
-    btn.addEventListener("click", e => {
-      e.preventDefault();
-      if (window.DePayButtons) return;
-      if (window.DePay) {
-        try {
-          window.DePay.Payment({
-            accept: [
-              {
-                blockchain: 'solana',
-                token: '11111111111111111111111111111111',
-                receiver: 'GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK',
-                amount: 19
-              }
-            ]
-          });
-          return;
-        } catch (err) {
-          console.warn("DePay invocation fallback:", err);
-        }
-      }
-      const solReceiver = "GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK";
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(solReceiver).then(() => {
-          showToast(`⚡ DePay Solana Receiver copied: ${solReceiver}`);
-        }).catch(() => {
-          showToast(`⚡ DePay Solana Receiver: ${solReceiver}`);
-        });
-      } else {
-        showToast(`⚡ DePay Solana Receiver: ${solReceiver}`);
-      }
-    });
-  });
+function setupSolanaTip() {
+  // 100% Free & Open Access — Solana Tip removed
 }

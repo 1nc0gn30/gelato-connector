@@ -1,6 +1,6 @@
 """Gelato API v2 Client.
 
-Engineered by Neal Frazier Tech (@1nc0gn30) • NullAI Platform.
+Engineered by 1nc0gn30 (@1nc0gn30) • NullAI Platform.
 100% Python Standard Library — Zero External Dependencies.
 """
 
@@ -53,7 +53,7 @@ class GelatoClient:
         if not self.is_live:
             return {
                 "organization_id": "org_nullai_1nc0gn30",
-                "name": "Neal Frazier Tech Sovereign Print Hub",
+                "name": "1nc0gn30 • NullAI Sovereign Print Hub",
                 "plan": "Gelato Connect Sovereign Enterprise",
                 "mode": "OFFLINE_DETERMINISTIC",
                 "active_hubs_count": 32,

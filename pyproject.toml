@@ -7,7 +7,7 @@ name = "gelato-connector"
 version = "1.0.0"
 description = "Gelato Open API v2 Connector, Localized Multi-Country POD Router, & Antigravity MCP Suite"
 readme = "README.md"
-authors = [{ name = "Neal Frazier Tech", email = "contact@nullai.tech" }]
+authors = [{ name = "1nc0gn30 • NullAI", email = "contact@nullai.tech" }]
 license = { text = "Proprietary" }
 requires-python = ">=3.10"
 dependencies = []

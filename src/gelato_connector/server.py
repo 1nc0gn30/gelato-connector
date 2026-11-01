@@ -81,7 +81,7 @@ class GelatoRequestHandler(SimpleHTTPRequestHandler):
                 "version": "1.0.0",
                 "port": 8116,
                 "engine": "Python Standard Library (Zero External Dependencies)",
-                "creator": "Neal Frazier Tech (@1nc0gn30)"
+                "creator": "1nc0gn30 (@1nc0gn30)"
             })
 
         if path == "/api/stats":
@@ -94,7 +94,7 @@ class GelatoRequestHandler(SimpleHTTPRequestHandler):
                 "activeCountriesCount": 32,
                 "supportedCurrencies": ["USD", "EUR", "GBP", "CAD", "AUD"],
                 "mcpToolsCount": 6,
-                "creator": "Neal Frazier Tech (@1nc0gn30)"
+                "creator": "1nc0gn30 (@1nc0gn30)"
             })
 
         # Catalog products

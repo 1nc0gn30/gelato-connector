@@ -1,7 +1,7 @@
 """Unit tests for Gelato Connector.
 
 100% Python Standard Library — Zero External Dependencies.
-Engineered by Neal Frazier Tech (@1nc0gn30) • NullAI Platform.
+Engineered by 1nc0gn30 (@1nc0gn30) • NullAI Platform.
 """
 
 import os

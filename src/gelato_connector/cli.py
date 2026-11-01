@@ -1,6 +1,6 @@
 """Command Line Interface for Gelato Connector.
 
-Engineered by Neal Frazier Tech (@1nc0gn30) • NullAI Platform.
+Engineered by 1nc0gn30 (@1nc0gn30) • NullAI Platform.
 100% Python Standard Library — Zero External Dependencies.
 """
 
@@ -52,7 +52,7 @@ C_RESET = "\033[0m"
 def print_banner() -> None:
     print(f"{C_GOLD}{C_BOLD}🌍 GELATO CONNECTOR v2.5.0{C_RESET}")
     print(f"{C_DIM}Gelato Open API v2 Connector & Localized 32-Country Routing Optimizer{C_RESET}")
-    print(f"{C_DIM}Engineered by Neal Frazier Tech (@1nc0gn30) • NullAI Platform{C_RESET}\n")
+    print(f"{C_DIM}Engineered by 1nc0gn30 (@1nc0gn30) • NullAI Platform{C_RESET}\n")
 
 
 def cmd_status(host: str = "127.0.0.1", port: int = 8116, as_json: bool = False) -> int:
