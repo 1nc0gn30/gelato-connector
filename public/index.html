@@ -489,6 +489,22 @@
   </div>
 
   <script src="/gelato_app.js"></script>
-  <script src="/assets/sovereign-upgrade.js" defer></script>
+  
+
+  <script src="/sovereign_tutorial.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", function() {
+      if (window.createSovereignTutorial) {
+        window.createSovereignTutorial({
+          toolId: "gelato-connector",
+          toolName: "Gelato Connector",
+          tagline: "Direct fulfillment bridge for global Print-on-Demand shipping!",
+          accentColor: "#06B6D4",
+          steps: [{"icon": "\ud83c\udf0d", "title": "Global Print Network", "desc": "Connects your designs to printing hubs in over 30 countries for lightning-fast local delivery."}, {"icon": "\ud83d\udce6", "title": "Catalog & Price Sync", "desc": "Look up real-time production costs, shipping rates, and stock availability across all Gelato hubs."}, {"icon": "\u26a1", "title": "Automated Order Payloads", "desc": "Formats print-ready files and fulfillment requests with zero manual data entry."}]
+        });
+      }
+    });
+  </script>
+
 </body>
 </html>
