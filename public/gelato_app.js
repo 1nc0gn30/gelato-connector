@@ -473,74 +473,86 @@ function generateOrderPayload() {
   }
 }
 
+// Open-Access Action Handlers (100% Unlocked by Default)
 function triggerProAction(actionName) {
-  if (isProActive || hasProLicense()) {
-    if (actionName === "copy_payload") {
-      const output = document.getElementById("payloadOutput") ? document.getElementById("payloadOutput").textContent : "";
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(output).then(() => {
-          const btn = document.getElementById("btn-copy-payload");
-          if (btn) {
-            const orig = btn.innerHTML;
-            btn.innerHTML = "✅ Copied to Clipboard!";
-            setTimeout(() => { btn.innerHTML = orig; }, 2000);
-          }
-          showToast("✅ Gelato Order Creation Payload copied to clipboard!");
-        }).catch(() => {
-          showToast("✅ Gelato Order Creation Payload copied to clipboard!");
-        });
-      } else {
+  if (actionName === "copy_payload") {
+    const output = document.getElementById("payloadOutput") ? document.getElementById("payloadOutput").textContent : "";
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(output).then(() => {
+        const btn = document.getElementById("btn-copy-payload");
+        if (btn) {
+          const orig = btn.innerHTML;
+          btn.innerHTML = "✅ Copied to Clipboard!";
+          setTimeout(() => { btn.innerHTML = orig; }, 2000);
+        }
         showToast("✅ Gelato Order Creation Payload copied to clipboard!");
-      }
-    } else if (actionName === "export_hubs") {
-      let csv = "Country Code,Country Name,Currency,Lead Time,Local Carrier,Domestic Shipping Cost\n";
-      Object.keys(HUBS).forEach(code => {
-        const h = HUBS[code];
-        csv += `"${code}","${h.country}","${h.currency}","${h.lead}","${h.carrier}",${h.cost}\n`;
+      }).catch(() => {
+        showToast("✅ Gelato Order Creation Payload copied to clipboard!");
       });
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "gelato_local_hubs_matrix.csv";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      showToast("📥 Local Hubs Matrix CSV Exported!");
-    } else if (actionName === "global_router") {
-      const bundle = {
-        name: "Gelato Pro Sovereign Global Dispatch Bundle",
-        version: "2.5.0",
-        author: "1nc0gn30 (@1nc0gn30)",
-        engine: "Gelato Localized Production & Smart Dispatch",
-        hubs_active: Object.keys(HUBS).length,
-        supported_countries: Object.keys(HUBS),
-        routing_rules: [
-          { zone: "US", carrier: "USPS/FedEx", duties: "0% Domestic" },
-          { zone: "EU", carrier: "DHL/PostNL", duties: "0% Domestic (Intra-EU)" },
-          { zone: "UK", carrier: "Royal Mail", duties: "0% Domestic" },
-          { zone: "APAC", carrier: "Australia Post", duties: "0% Domestic" }
-        ],
-        hubs: HUBS
-      };
-      const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "gelato_global_router_bundle.json";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      showToast("📦 Gelato Global Dispatch Bundle Exported!");
     } else {
-      showToast(`✅ Pro Action '${actionName}' executed successfully!`);
+      showToast("✅ Gelato Order Creation Payload copied to clipboard!");
     }
+  } else if (actionName === "export_hubs") {
+    let csv = "Country Code,Country Name,Currency,Lead Time,Local Carrier,Domestic Shipping Cost\n";
+    Object.keys(HUBS).forEach(code => {
+      const h = HUBS[code];
+      csv += `"${code}","${h.country}","${h.currency}","${h.lead}","${h.carrier}",${h.cost}\n`;
+    });
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "gelato_local_hubs_matrix.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast("📥 Local Hubs Matrix CSV Exported!");
+  } else if (actionName === "global_router") {
+    const bundle = {
+      name: "Gelato Pro Sovereign Global Dispatch Bundle",
+      version: "2.5.0",
+      author: "Neal Frazier Tech (@1nc0gn30)",
+      engine: "Gelato Localized Production & Smart Dispatch",
+      hubs_active: Object.keys(HUBS).length,
+      supported_countries: Object.keys(HUBS),
+      routing_rules: [
+        { zone: "US", carrier: "USPS/FedEx", duties: "0% Domestic" },
+        { zone: "EU", carrier: "DHL/PostNL", duties: "0% Domestic (Intra-EU)" },
+        { zone: "UK", carrier: "Royal Mail", duties: "0% Domestic" },
+        { zone: "APAC", carrier: "Australia Post", duties: "0% Domestic" }
+      ],
+      hubs: HUBS
+    };
+    const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "gelato_global_router_bundle.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast("📦 Gelato Global Dispatch Bundle Exported!");
   } else {
-    openPaywallModal(`Pro Feature: ${actionName}`);
+    showToast(`✅ Action '${actionName}' executed successfully!`);
   }
 }
+
+function copySolanaAddress(btn) {
+  const addr = "GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK";
+  navigator.clipboard.writeText(addr).then(() => {
+    if (btn) {
+      const orig = btn.textContent;
+      btn.textContent = "✓ Solana Address Copied!";
+      setTimeout(() => { btn.textContent = orig; }, 2500);
+    }
+    showToast("✓ Solana Tip Address copied to clipboard!");
+  }).catch(() => {
+    window.open("solana:" + addr, "_blank");
+  });
+}
+window.copySolanaAddress = copySolanaAddress;
 
 function openPaywallModal(context = "") {
   const modal = document.getElementById("paywall-modal") || document.getElementById("paywallModal");
