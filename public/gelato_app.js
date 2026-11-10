@@ -512,7 +512,7 @@ function triggerProAction(actionName) {
     const bundle = {
       name: "Gelato Pro Sovereign Global Dispatch Bundle",
       version: "2.5.0",
-      author: "Neal Frazier Tech (@1nc0gn30)",
+      author: "1nc0gn30 (@1nc0gn30)",
       engine: "Gelato Localized Production & Smart Dispatch",
       hubs_active: Object.keys(HUBS).length,
       supported_countries: Object.keys(HUBS),

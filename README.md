@@ -32,7 +32,7 @@ Autonomous **Gelato Open API v2 Connector**, Localized 32-Country Print-on-Deman
 ## ⚙️ How It Works
 
 1. **Standalone Enclave (`127.0.0.1:8116`)**: Powered by `server.py` serving a dark-glassmorphic cockpit with live `/health`, `/api/stats`, `/api/products`, `/api/hubs`, `/api/margins`, and `/api/shipping` endpoints.
-2. **Zoth Studio v2 God-Mode Route**: Deeply integrated into the 72-Tool Sovereign Matrix at `/tools/gelato-connector`.
+2. **Zoth Studio v2 God-Mode Route**: Deeply integrated into the 77-Tool Sovereign Matrix at `/tools/gelato-connector`.
 3. **ZothOS CLI (`gelato-connector`)**: Native binary installed in `/usr/local/bin` and `~/.local/bin` for automated command-line audits and CI/CD pipelines.
 4. **Antigravity MCP Bridge**: Standard JSON-RPC 2.0 stdio server providing 6 autonomous tools for AI agents.
 
