@@ -108,8 +108,6 @@ const HUBS = {
   "NL": { country: "Netherlands", currency: "EUR", symbol: "€", lead: "2.0 Days", carrier: "PostNL", cost: 4.10 }
 };
 
-let isProActive = true;
-
 // Toast Notification System
 function showToast(msg) {
   let toast = document.getElementById('gelatoToast');
@@ -129,7 +127,7 @@ function showToast(msg) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  checkLicenseStatus();
+  initOpenAccessState();
   setupEventListeners();
   recalculateMargins();
   auditArtwork();
@@ -137,73 +135,12 @@ document.addEventListener("DOMContentLoaded", () => {
   generateOrderPayload();
 });
 
-function hasProLicense() {
-  return true;
-}
-
-function checkLicenseStatus() {
-  const params = new URLSearchParams(window.location.search);
-  const licenseParam = params.get("licensed") || params.get("pro") || params.get("session_id");
-
-  if (licenseParam === "true" || params.get("session_id")) {
-    localStorage.setItem("gelato_pro_license", "GELATO-PRO-2026");
-    localStorage.setItem("gelato_pro_licensed", "true");
-    localStorage.setItem("agent_gelato_pro", "GELATO-PRO-2026");
-    localStorage.setItem("zoth_gelato_licensed", "true");
-    localStorage.setItem("pro_licensed", "true");
-    if (window.history && window.history.replaceState) {
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-  }
-
-  if (hasProLicense()) {
-    unlockProMode(false);
-  }
-}
-
-function unlockProMode(saveStorage = true) {
-  isProActive = true;
-  if (saveStorage) {
-    localStorage.setItem("gelato_pro_license", "GELATO-PRO-2026");
-    localStorage.setItem("gelato_pro_licensed", "true");
-    localStorage.setItem("agent_gelato_pro", "GELATO-PRO-2026");
-    localStorage.setItem("zoth_gelato_licensed", "true");
-    localStorage.setItem("pro_licensed", "true");
-  }
-
-  const badge = document.getElementById("licenseBadge") || document.getElementById("pro-badge") || document.getElementById("proStatusBadge");
+function initOpenAccessState() {
+  const badge = document.getElementById("licenseBadge");
   if (badge) {
-    badge.innerText = "✦ 100% FREE & OPEN ACCESS";
-    badge.classList.remove("badge-free");
-    badge.classList.add("badge-pro");
-    badge.style.background = "rgba(16, 185, 129, 0.15)";
-    badge.style.color = "#10B981";
-    badge.style.borderColor = "rgba(16, 185, 129, 0.35)";
-  }
-
-  const sb = document.getElementById("salesBanner");
-  if (sb) {
-    sb.style.display = "none";
-  }
-
-  document.body.classList.add("licensed", "pro-unlocked", "pro-licensed");
-  document.querySelectorAll(".paywall-wrapper").forEach(w => w.classList.add("pro-unlocked"));
-  closePaywallModal();
-  if (saveStorage) {
-    showToast("✦ 100% Free & Open Access — All Features Unlocked!");
+    badge.innerText = "✦ OPEN SOURCE";
   }
 }
-
-window.activateLicenseKey = function(key) {
-  if (!key) key = "GELATO-PRO-2026";
-  localStorage.setItem("gelato_pro_license", key);
-  localStorage.setItem("gelato_pro_licensed", "true");
-  localStorage.setItem("agent_gelato_pro", key);
-  localStorage.setItem("zoth_gelato_licensed", "true");
-  localStorage.setItem("pro_licensed", "true");
-  unlockProMode(true);
-  return true;
-};
 
 function setupEventListeners() {
   const prodSelect = document.getElementById("prodSelect");
@@ -253,43 +190,6 @@ function setupEventListeners() {
       generateOrderPayload();
     });
   }
-
-  // Header key button
-  const btnHeaderKey = document.getElementById("btn-header-key");
-  if (btnHeaderKey) {
-    btnHeaderKey.addEventListener("click", () => openPaywallModal("Header Key Button"));
-  }
-
-  // Paywall unlock button
-  const btnUnlockPaywall = document.getElementById("btn-unlock-paywall");
-  if (btnUnlockPaywall) {
-    btnUnlockPaywall.addEventListener("click", () => openPaywallModal("Paywall Overlay"));
-  }
-
-  // Modal backdrop click
-  const modal = document.getElementById("paywall-modal") || document.getElementById("paywallModal");
-  if (modal) {
-    modal.addEventListener("click", e => {
-      if (e.target === modal) closePaywallModal();
-    });
-  }
-
-  // Key input Enter listener
-  const keyInput = document.getElementById("license-key-input") || document.getElementById("licenseKeyInput");
-  if (keyInput) {
-    keyInput.addEventListener("keydown", e => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        activateKey();
-      }
-    });
-  }
-
-  window.addEventListener("keydown", e => {
-    if (e.key === "Escape") closePaywallModal();
-  });
-
-  setupSolanaTip();
 }
 
 function handleImageFile(file) {
@@ -451,7 +351,7 @@ function generateOrderPayload() {
     shippingAddress: {
       firstName: "Jane",
       lastName: "Doe",
-      addressLine1: "123 Sovereign Promenade",
+      addressLine1: "Example Street 1",
       city: country === "DE" ? "Berlin" : (country === "UK" ? "London" : "New York"),
       country: country,
       postCode: country === "DE" ? "10115" : "10001",
@@ -474,7 +374,7 @@ function generateOrderPayload() {
 }
 
 // Open-Access Action Handlers (100% Unlocked by Default)
-function triggerProAction(actionName) {
+function runAction(actionName) {
   if (actionName === "copy_payload") {
     const output = document.getElementById("payloadOutput") ? document.getElementById("payloadOutput").textContent : "";
     if (navigator.clipboard) {
@@ -487,10 +387,10 @@ function triggerProAction(actionName) {
         }
         showToast("✅ Gelato Order Creation Payload copied to clipboard!");
       }).catch(() => {
-        showToast("✅ Gelato Order Creation Payload copied to clipboard!");
+        showToast("Clipboard access denied — select the payload text and copy manually.");
       });
     } else {
-      showToast("✅ Gelato Order Creation Payload copied to clipboard!");
+      showToast("Clipboard API unavailable — select the payload text and copy manually.");
     }
   } else if (actionName === "export_hubs") {
     let csv = "Country Code,Country Name,Currency,Lead Time,Local Carrier,Domestic Shipping Cost\n";
@@ -510,7 +410,7 @@ function triggerProAction(actionName) {
     showToast("📥 Local Hubs Matrix CSV Exported!");
   } else if (actionName === "global_router") {
     const bundle = {
-      name: "Gelato Pro Sovereign Global Dispatch Bundle",
+      name: "Gelato Global Dispatch Bundle",
       version: "2.5.0",
       author: "1nc0gn30 (@1nc0gn30)",
       engine: "Gelato Localized Production & Smart Dispatch",
@@ -535,70 +435,6 @@ function triggerProAction(actionName) {
     URL.revokeObjectURL(url);
     showToast("📦 Gelato Global Dispatch Bundle Exported!");
   } else {
-    showToast(`✅ Action '${actionName}' executed successfully!`);
+    showToast(`Unknown action: ${actionName}`);
   }
-}
-
-function copySolanaAddress(btn) {
-  const addr = "GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK";
-  navigator.clipboard.writeText(addr).then(() => {
-    if (btn) {
-      const orig = btn.textContent;
-      btn.textContent = "✓ Solana Address Copied!";
-      setTimeout(() => { btn.textContent = orig; }, 2500);
-    }
-    showToast("✓ Solana Tip Address copied to clipboard!");
-  }).catch(() => {
-    window.open("solana:" + addr, "_blank");
-  });
-}
-window.copySolanaAddress = copySolanaAddress;
-
-function openPaywallModal(context = "") {
-  const modal = document.getElementById("paywall-modal") || document.getElementById("paywallModal");
-  if (modal) {
-    modal.classList.add("is-open");
-    modal.style.display = "flex";
-  }
-}
-
-function closePaywallModal() {
-  const modal = document.getElementById("paywall-modal") || document.getElementById("paywallModal");
-  if (modal) {
-    modal.classList.remove("is-open");
-    modal.style.display = "none";
-  }
-}
-
-function activateKey() {
-  const input = document.getElementById("license-key-input") || document.getElementById("licenseKeyInput");
-  const statusEl = document.getElementById("license-status");
-  const key = input ? input.value.trim() : "";
-
-  if (!key) {
-    if (statusEl) {
-      statusEl.style.color = "var(--ruby)";
-      statusEl.innerText = "Please enter a valid license key or receipt email.";
-    }
-    showToast("Please enter a valid license key or receipt email.");
-    return;
-  }
-
-  if (key.length >= 6) {
-    unlockProMode(true);
-    if (statusEl) {
-      statusEl.style.color = "var(--emerald)";
-      statusEl.innerText = "⭐ Sovereign Gelato Pro License Activated Successfully!";
-    }
-  } else {
-    if (statusEl) {
-      statusEl.style.color = "var(--ruby)";
-      statusEl.innerText = "Invalid license key (minimum 6 characters required).";
-    }
-    showToast("Invalid license key (minimum 6 characters required).");
-  }
-}
-
-function setupSolanaTip() {
-  // 100% Free & Open Access — Solana Tip removed
 }

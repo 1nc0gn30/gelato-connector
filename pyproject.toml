@@ -4,13 +4,18 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gelato-connector"
-version = "1.0.0"
+version = "2.5.0"
 description = "Gelato Open API v2 Connector, Localized Multi-Country POD Router, & Antigravity MCP Suite"
 readme = "README.md"
-authors = [{ name = "1nc0gn30 • NullAI", email = "contact@nullai.tech" }]
-license = { text = "Proprietary" }
+authors = [{ name = "1nc0gn30", email = "hello@nullai.tech" }]
+license = { text = "MIT" }
 requires-python = ">=3.10"
 dependencies = []
+
+[project.urls]
+Homepage = "https://zoth.nullai.tech/tools/gelato-connector"
+Repository = "https://github.com/1nc0gn30/gelato-connector"
+Documentation = "https://nullai.tech"
 
 [project.scripts]
 gelato-connector = "gelato_connector.cli:main"

@@ -13,6 +13,7 @@ from urllib.parse import parse_qs, urlparse
 
 from .artwork_auditor import audit_artwork_dimensions
 from .catalog import GELATO_PRODUCTS, get_product, list_products
+from . import __version__
 from .margin_engine import calculate_margins, calculate_multi_channel_margins
 from .shipping_engine import LOCAL_HUBS, get_shipping_quote
 
@@ -78,8 +79,9 @@ class GelatoRequestHandler(SimpleHTTPRequestHandler):
             return self._send_json({
                 "status": "healthy",
                 "service": "gelato-connector",
-                "version": "1.0.0",
-                "port": 8116,
+                "version": __version__,
+                "port": self.server.server_address[1],
+                "apiConfigured": bool(os.environ.get("GELATO_API_KEY")),
                 "engine": "Python Standard Library (Zero External Dependencies)",
                 "creator": "1nc0gn30 (@1nc0gn30)"
             })
@@ -88,10 +90,10 @@ class GelatoRequestHandler(SimpleHTTPRequestHandler):
             return self._send_json({
                 "service": "gelato-connector",
                 "status": "online",
-                "port": 8116,
+                "port": self.server.server_address[1],
                 "productsCount": len(GELATO_PRODUCTS),
                 "hubsCount": len(LOCAL_HUBS),
-                "activeCountriesCount": 32,
+                "activeCountriesCount": len(LOCAL_HUBS),
                 "supportedCurrencies": ["USD", "EUR", "GBP", "CAD", "AUD"],
                 "mcpToolsCount": 6,
                 "creator": "1nc0gn30 (@1nc0gn30)"
@@ -187,7 +189,7 @@ class GelatoRequestHandler(SimpleHTTPRequestHandler):
             prod_id = body.get("productId", "acrylic_print_16x24")
             image_url = body.get("imageUrl", "https://example.com/artwork.png")
             name = body.get("recipientName", "Jane Doe")
-            address = body.get("addressLine", "123 Sovereign Way")
+            address = body.get("addressLine", "Example Street 1")
             city = body.get("city", "Berlin")
             country = body.get("country", "DE")
             postal = body.get("postalCode", "10115")
@@ -228,7 +230,7 @@ def run_server(port=8116, host="127.0.0.1"):
     """Start the Gelato Connector HTTP daemon."""
     server_address = (host, port)
     httpd = HTTPServer(server_address, GelatoRequestHandler)
-    print(f"🌍 Gelato Connector HTTP Server active at http://{host}:{port}")
+    print(f"Gelato Connector listening on http://{host}:{httpd.server_address[1]}")
     print(f"   • Endpoints: /api/stats, /api/products, /api/hubs, /api/margins, /api/shipping, /api/audit")
     try:
         httpd.serve_forever()

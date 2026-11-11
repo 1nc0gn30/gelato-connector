@@ -241,11 +241,6 @@ button:active {
   font-style: italic;
 }
 
-/* Empty license status container */
-#license-status:empty {
-  display: none;
-}
-
 /* --------------------------------------------------------------------------
    4. ERROR & INVALID DIAGNOSTIC PRESENTATION (:invalid)
    -------------------------------------------------------------------------- */

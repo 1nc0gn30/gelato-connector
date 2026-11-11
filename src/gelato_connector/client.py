@@ -18,22 +18,29 @@ from .catalog import GELATO_PRODUCTS, get_product
 class GelatoClient:
     """Gelato REST API v2 Client with Live & Offline Deterministic Modes."""
 
-    BASE_URL = "https://order.gelatoapis.com/v2"
+    # Gelato Product API (catalog listing). Used live only when GELATO_API_KEY is set.
+    BASE_URL = "https://product.gelatoapis.com/v3"
+
+    OFFLINE_MESSAGE = (
+        "GELATO_API_KEY is not set. Live Gelato API calls are disabled; catalog, shipping, "
+        "margin, audit and order-payload tools use the bundled offline reference data. "
+        "Create a key in the Gelato dashboard (Developer > API Keys) and export GELATO_API_KEY to enable live mode."
+    )
 
     def __init__(self, api_key: Optional[str] = None) -> None:
         self.api_key = api_key or os.environ.get("GELATO_API_KEY", "")
         self.is_live = bool(self.api_key)
 
     def _request(self, endpoint: str, method: str = "GET", data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        """Make an authenticated HTTP request or fallback to mock mode."""
+        """Make an authenticated HTTP request. Raises when no API key is configured."""
         if not self.is_live:
-            return self._mock_response(endpoint, method, data)
+            raise RuntimeError(self.OFFLINE_MESSAGE)
 
         url = f"{self.BASE_URL}{endpoint}"
         headers = {
             "X-API-KEY": self.api_key,
             "Content-Type": "application/json",
-            "User-Agent": "GelatoConnector-Antigravity/1.0.0"
+            "User-Agent": "gelato-connector/2.5.0"
         }
 
         body = json.dumps(data).encode("utf-8") if data else None
@@ -49,32 +56,25 @@ class GelatoClient:
             raise RuntimeError(f"Gelato Connection Error: {e}")
 
     def get_shop_info(self) -> Dict[str, Any]:
-        """Retrieve connected Gelato store status and production routing capabilities."""
+        """Report API connection status. Live mode verifies the key against GET /v3/catalogs."""
         if not self.is_live:
-            return {
-                "organization_id": "org_nullai_1nc0gn30",
-                "name": "1nc0gn30 • NullAI Sovereign Print Hub",
-                "plan": "Gelato Connect Sovereign Enterprise",
-                "mode": "OFFLINE_DETERMINISTIC",
-                "active_hubs_count": 32,
-                "supported_currencies": ["USD", "EUR", "GBP", "CAD", "AUD", "JPY"],
-                "api_connected": False,
-                "status": "Ready for Autonomous Dispatch"
-            }
-        return self._request("/organizations/me")
+            return {"api_connected": False, "mode": "OFFLINE", "error": self.OFFLINE_MESSAGE}
+        catalogs = self._request("/catalogs")
+        items = catalogs.get("data", catalogs) if isinstance(catalogs, dict) else catalogs
+        return {"api_connected": True, "mode": "LIVE", "catalogs_count": len(items) if isinstance(items, list) else None}
 
     def get_catalog(self) -> List[Dict[str, Any]]:
         """List localized Gelato products."""
         if not self.is_live:
             return GELATO_PRODUCTS
-        return self._request("/catalog/products")
+        return self._request("/catalogs")
 
     def create_order_payload(
         self,
         product_id: Any,
         image_url: str,
         recipient_name: str = "Jane Doe",
-        address_line: str = "123 Sovereign Way",
+        address_line: str = "Example Street 1",
         city: str = "Berlin",
         country: str = "DE",
         postal_code: str = "10115",
@@ -114,16 +114,3 @@ class GelatoClient:
             ]
         }
         return payload
-
-    def _mock_response(self, endpoint: str, method: str, data: Optional[Dict[str, Any]]) -> Dict[str, Any]:
-        """Internal mock handler for testing without API keys."""
-        if "catalog" in endpoint:
-            return {"products": GELATO_PRODUCTS}
-        if "orders" in endpoint:
-            return {
-                "id": "mock_gelato_order_99823",
-                "status": "created",
-                "productionCountry": "DE",
-                "mode": "MOCK_MODE"
-            }
-        return {"status": "ok", "mode": "MOCK_MODE", "endpoint": endpoint}

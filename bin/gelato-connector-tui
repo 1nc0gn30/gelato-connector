@@ -1,60 +1,97 @@
 #!/usr/bin/env python3
-"""⚡ Gelato Connector — Sovereign Unicode U+2800 Braille TUI & Benchmark Harness
-Engineered by 1nc0gn30 (@1nc0gn30) • NullAI Platform
-Paired Uncommon-Web Library: Canvas UI (canvasui-html-effects)
+"""Gelato Connector - terminal summary and local benchmark.
+
+Runs the real margin and shipping engines for one product across every bundled
+hub country, times the work, and renders a Unicode braille sparkline of net margins.
+Engineered by 1nc0gn30 (@1nc0gn30) - NullAI (https://nullai.tech)
 """
-import argparse, json, math, os, sys, time
+import argparse
+import json
+import sys
+import time
+from pathlib import Path
+
+SRC_DIR = Path(__file__).resolve().parent.parent / "src"
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
+
+from gelato_connector import __version__  # noqa: E402
+from gelato_connector.catalog import GELATO_PRODUCTS, get_product  # noqa: E402
+from gelato_connector.margin_engine import calculate_multi_channel_margins  # noqa: E402
+from gelato_connector.shipping_engine import LOCAL_HUBS, get_shipping_quote  # noqa: E402
 
 BRAILLE_BASE = 0x2800
-METRICS = ["AST/Engine Latency (ms)", "Throughput (ops/s)", "Memory Footprint (MB)", "Zero-Trust Audit Status"]
-SUMMARY = "Sovereign Gelato Connector engine with deterministic local execution and real-time telemetry."
-UW_SLUG = "canvasui-html-effects"
-UW_INSTALL = "npx shadcn@latest add https://canvasui.dev/r/liquid-react.json https://canvasui.dev/r/shatter-react.json https://canvasui.dev/r/peel-react.json https://canvasui.dev/r/ripple-react.json https://canvasui.dev/r/cloth-react.json https://canvasui.dev/r/vhs-react.json"
+
 
 def braille_sparkline(vals):
+    if not vals:
+        return ""
+    lo, hi = min(vals), max(vals)
+    span = (hi - lo) or 1.0
+    norm = [(v - lo) / span for v in vals]
+    if len(norm) % 2:
+        norm.append(norm[-1])
     out = []
-    for i in range(0, len(vals) - 1, 2):
-        v1 = max(0, min(3, int(vals[i] * 3.99)))
-        v2 = max(0, min(3, int(vals[i+1] * 3.99)))
-        dots1 = (0x40, 0x04, 0x02, 0x01)[v1]
-        dots2 = (0x80, 0x20, 0x10, 0x08)[v2]
-        out.append(chr(BRAILLE_BASE | dots1 | dots2))
+    for i in range(0, len(norm), 2):
+        v1 = max(0, min(3, int(norm[i] * 3.99)))
+        v2 = max(0, min(3, int(norm[i + 1] * 3.99)))
+        out.append(chr(BRAILLE_BASE | (0x40, 0x04, 0x02, 0x01)[v1] | (0x80, 0x20, 0x10, 0x08)[v2]))
     return "".join(out)
 
+
+def run(product_id: str, price: float, iterations: int):
+    countries = list(LOCAL_HUBS)
+    margins = []
+    t0 = time.perf_counter()
+    for _ in range(iterations):
+        margins = []
+        for cc in countries:
+            res = calculate_multi_channel_margins(product_id=product_id, retail_price=price, currency="USD", destination_country=cc)
+            margins.append(float(res["channels"]["etsy"]["profit_margin_pct"]))
+            get_shipping_quote(product_id, cc, False)
+    elapsed_ms = (time.perf_counter() - t0) * 1000.0
+    return countries, margins, elapsed_ms
+
+
 def main():
-    ap = argparse.ArgumentParser(description="Gelato Connector Sovereign TUI & Benchmark")
-    ap.add_argument("--json", action="store_true", help="Output JSON telemetry and exit")
-    ap.add_argument("--benchmark", action="store_true", help="Run deterministic latency benchmark")
-    ap.add_argument("--frames", type=int, default=18, help="TUI frames to render")
+    ap = argparse.ArgumentParser(description="Gelato Connector terminal summary and local benchmark")
+    ap.add_argument("--json", action="store_true", help="Output JSON summary and exit")
+    ap.add_argument("--product", default="acrylic_print_16x24", help="Product ID (default: acrylic_print_16x24)")
+    ap.add_argument("--price", type=float, default=68.0, help="Retail price in USD (default: 68.0)")
+    ap.add_argument("--iterations", type=int, default=50, help="Benchmark iterations (default: 50)")
     args = ap.parse_args()
 
-    t0 = time.perf_counter()
-    samples = [0.5 + 0.45 * math.sin(i * 0.35) for i in range(48)]
-    elapsed_ms = round((time.perf_counter() - t0) * 1000.0 + 0.42, 3)
-
+    product = get_product(args.product)
+    if not product:
+        print(f"Unknown product: {args.product}", file=sys.stderr)
+        return 2
+    countries, margins, elapsed_ms = run(product["id"], args.price, max(1, args.iterations))
+    calcs = len(countries) * max(1, args.iterations) * 2
+    summary = {
+        "tool": "gelato-connector",
+        "version": __version__,
+        "products": len(GELATO_PRODUCTS),
+        "hub_countries": len(LOCAL_HUBS),
+        "product": product["id"],
+        "retail_price_usd": args.price,
+        "etsy_net_margin_pct_by_country": dict(zip(countries, margins)),
+        "benchmark": {"calculations": calcs, "elapsed_ms": round(elapsed_ms, 3),
+                      "per_calc_us": round(elapsed_ms * 1000.0 / calcs, 2) if calcs else None},
+        "braille_margin_sparkline": braille_sparkline(margins),
+    }
     if args.json:
-        print(json.dumps({
-            "tool": "gelato-connector",
-            "title": "Gelato Connector",
-            "architect": "1nc0gn30 (@1nc0gn30) • NullAI Platform",
-            "summary": SUMMARY,
-            "uncommon_web": {"slug": UW_SLUG, "install": UW_INSTALL},
-            "audio_lufs": -14.0,
-            "benchmark_ms": elapsed_ms,
-            "metrics": METRICS,
-            "braille_signature": braille_sparkline(samples),
-        }, indent=2))
-        return
+        print(json.dumps(summary, indent=2))
+        return 0
 
-    print("\033[1;33m╭──────────────────────────────────────────────────────────────────────────╮\033[0m")
-    print(f"\033[1;33m│\033[0m ⚡ \033[1;37mGelato Connector                \033[0m │ \033[36m1nc0gn30 • NullAI Platform\033[0m         \033[1;33m│\033[0m")
-    print("\033[1;33m├──────────────────────────────────────────────────────────────────────────┤\033[0m")
-    print(f"\033[1;33m│\033[0m {SUMMARY[:72]:<72} \033[1;33m│\033[0m")
-    print(f"\033[1;33m│\033[0m Uncommon-Web: \033[32m{UW_SLUG:<24}\033[0m Audio: \033[35m-14.0 LUFS Mastered\033[0m   \033[1;33m│\033[0m")
-    for idx, m in enumerate(METRICS[:4]):
-        wave = braille_sparkline([0.5 + 0.45 * math.sin((i + idx * 3) * 0.4) for i in range(40)])
-        print(f"\033[1;33m│\033[0m  • {m[:24]:<24} \033[33m{wave}\033[0m  PASS   \033[1;33m│\033[0m")
-    print("\033[1;33m╰──────────────────────────────────────────────────────────────────────────╯\033[0m")
+    print(f"Gelato Connector v{__version__}  |  1nc0gn30 - NullAI")
+    print(f"Products: {summary['products']}   Hub countries: {summary['hub_countries']}   {product['title']} @ ${args.price:.2f}")
+    print(f"Etsy net margin by destination: {summary['braille_margin_sparkline']}")
+    for cc, m in zip(countries, margins):
+        print(f"  {cc:<4} {LOCAL_HUBS[cc]['country']:<16} {m:7.2f}%")
+    b = summary["benchmark"]
+    print(f"Benchmark: {b['calculations']} calculations in {b['elapsed_ms']} ms ({b['per_calc_us']} us/calc)")
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

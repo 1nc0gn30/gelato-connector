@@ -9,7 +9,7 @@ from __future__ import annotations
 from typing import Any, Dict, List, Optional
 from .catalog import get_product
 
-# Verified Gelato localized manufacturing hub network (32 countries)
+# Reference table of 10 Gelato production countries (approximate lead times and local shipping costs)
 LOCAL_HUBS: Dict[str, Dict[str, Any]] = {
     "US": {"country": "United States", "currency": "USD", "avg_lead_days": 2.2, "local_ship_cost": 4.50, "express_ship_cost": 9.80, "carrier": "USPS / FedEx Ground"},
     "CA": {"country": "Canada", "currency": "CAD", "avg_lead_days": 2.5, "local_ship_cost": 6.80, "express_ship_cost": 12.50, "carrier": "Canada Post / Purolator"},

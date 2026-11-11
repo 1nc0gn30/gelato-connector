@@ -18,7 +18,8 @@ from .catalog import list_products
 from .margin_engine import calculate_multi_channel_margins
 from .mcp_server import run_mcp_server
 from .server import run_server
-from .shipping_engine import get_shipping_quote
+from .shipping_engine import LOCAL_HUBS, get_shipping_quote
+from . import __version__
 
 
 def _default_bind_host() -> str:
@@ -50,8 +51,8 @@ C_RESET = "\033[0m"
 
 
 def print_banner() -> None:
-    print(f"{C_GOLD}{C_BOLD}🌍 GELATO CONNECTOR v2.5.0{C_RESET}")
-    print(f"{C_DIM}Gelato Open API v2 Connector & Localized 32-Country Routing Optimizer{C_RESET}")
+    print(f"{C_GOLD}{C_BOLD}GELATO CONNECTOR v{__version__}{C_RESET}")
+    print(f"{C_DIM}Gelato Open API v2 Connector & Localized Multi-Country Routing Optimizer{C_RESET}")
     print(f"{C_DIM}Engineered by 1nc0gn30 (@1nc0gn30) • NullAI Platform{C_RESET}\n")
 
 
@@ -69,11 +70,12 @@ def cmd_status(host: str = "127.0.0.1", port: int = 8116, as_json: bool = False)
     data = {
         "status": "online" if live_info else "standby",
         "service": "gelato-connector",
-        "version": "2.5.0",
+        "version": __version__,
         "port": port,
         "products_count": len(products),
-        "supported_countries": 32,
-        "license": "100% Free & Open Access (Zero Paywalls)",
+        "local_hubs": len(LOCAL_HUBS),
+        "api_key_configured": bool(os.environ.get("GELATO_API_KEY")),
+        "license": "MIT",
         "daemon": live_info,
     }
 
@@ -85,8 +87,12 @@ def cmd_status(host: str = "127.0.0.1", port: int = 8116, as_json: bool = False)
     state_color = C_GREEN if live_info else C_AMBER
     print(f"Daemon Status:      {state_color}{data['status'].upper()}{C_RESET} ({url})")
     print(f"Catalog Products:   {C_CYAN}{data['products_count']} items cataloged{C_RESET}")
-    print(f"Localized Hubs:     {C_GOLD}32 active sovereign countries{C_RESET}")
-    print(f"Access Guarantee:   100% Free & Open Access (Zero Paywalls)")
+    print(f"Local Hubs:         {C_GOLD}{data['local_hubs']} countries in the bundled hub table{C_RESET}")
+    if data["api_key_configured"]:
+        print(f"Gelato API:         {C_GREEN}GELATO_API_KEY set (live mode){C_RESET}")
+    else:
+        print(f"Gelato API:         {C_AMBER}GELATO_API_KEY not set (offline reference data only){C_RESET}")
+    print("License:            MIT (100% Free & Open-Source)")
     print()
     return 0
 

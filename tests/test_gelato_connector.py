@@ -95,8 +95,12 @@ class TestGelatoArtworkAuditor(unittest.TestCase):
 class TestGelatoClientAndMCP(unittest.TestCase):
     def test_client_offline_mock(self):
         client = GelatoClient()
+        client.api_key = ""
+        client.is_live = False
         info = client.get_shop_info()
-        self.assertEqual(info["mode"], "OFFLINE_DETERMINISTIC")
+        self.assertEqual(info["mode"], "OFFLINE")
+        self.assertFalse(info["api_connected"])
+        self.assertIn("GELATO_API_KEY", info["error"])
         payload = client.create_order_payload("acrylic_print_16x24", "https://example.com/art.png")
         self.assertEqual(payload["orderType"], "order")
         self.assertIn("shippingAddress", payload)

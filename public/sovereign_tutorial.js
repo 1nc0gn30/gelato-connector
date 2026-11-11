@@ -42,11 +42,11 @@
         
         <button id="sovCloseBtn-${toolId}" style="position:absolute; top:18px; right:18px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); color:#F8FAFC; width:34px; height:34px; border-radius:50%; font-size:16px; cursor:pointer; font-weight:bold; display:flex; align-items:center; justify-content:center;">✕</button>
 
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px; padding-right:44px;">
           <span style="font-size:32px;">✨</span>
           <div>
             <h2 style="margin:0; font-size:20px; font-weight:800; color:${accentColor}; text-transform:uppercase; letter-spacing:0.04em;">${toolName}</h2>
-            <p style="margin:3px 0 0; color:#94A3B8; font-size:11px;">${tagline} · Kid-friendly quickstart</p>
+            <p style="margin:3px 0 0; color:#94A3B8; font-size:11px;">${tagline} · Quickstart</p>
           </div>
         </div>
 

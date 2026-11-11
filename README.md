@@ -1,150 +1,136 @@
-<div align="center">
-  <img src="assets/hero-banner.svg" alt="Gelato Connector — Sovereign Architecture Banner" width="100%" />
-</div>
+<p align="center">
+  <img src="assets/hero-banner.svg" alt="Gelato Connector: Gelato API client, local-hub shipping engine, multi-currency margin engine and MCP server" width="100%" />
+</p>
 
-<br />
+# Gelato Connector
 
-# 🌍 Gelato Connector for Antigravity & Sovereign AI Agents
+Zero-dependency Python 3.10+ toolkit for Gelato print-on-demand work: a bundled product reference catalog, a local-production shipping engine over 10 Gelato hub countries, a multi-currency (USD/EUR/GBP) margin calculator for Etsy, Shopify and direct checkout, an artwork print-spec auditor, a Gelato order-payload builder, a loopback HTTP workstation, and a 6-tool MCP stdio server.
 
-> ⚡ **Live Web Application**: [https://gelato.nullai.tech](https://gelato.nullai.tech)  
-> 🏛️ **Zoth Studio Workspace**: [https://zoth.nullai.tech/tools/gelato-connector](https://zoth.nullai.tech/tools/gelato-connector)  
-> 🛡️ **Sovereign Status**: 100% Free & Open-Access · Zero Paywalls · 100% Zero-Egress Compatible
+- Zoth Studio v2 dossier: https://zoth.nullai.tech/tools/gelato-connector
+- Local workstation: `http://127.0.0.1:8116`
+- Runtime dependencies: none (Python standard library only)
+- License: MIT
 
-[![Audit](https://img.shields.io/badge/guardrail-100%25%20passed-emerald)](https://gelato.nullai.tech)
-[![MCP Protocol](https://img.shields.io/badge/MCP-2024--11--05-blue)](https://modelcontextprotocol.io)
-[![Python](https://img.shields.io/badge/python-3.10%2B-gold)](https://python.org)
-[![Zero Pip](https://img.shields.io/badge/dependencies-0%20external-purple)](https://nullai.tech)
+## What It Does
 
-Autonomous **Gelato Open API v2 Connector**, Localized 32-Country Print-on-Demand Router, Multi-Currency Margin Engine, and Antigravity MCP Suite for **Google Antigravity** AI agents and **Zoth Studio v2 / ZothOS Linux 3.3**. Exposes 6 Model Context Protocol (MCP) tools for catalog search, local production routing, multi-currency profit modeling (USD, EUR, GBP), and order payload generation.
+- **Catalog lookup**: 7 bundled products (acrylic and aluminum prints, framed canvas, organic tee, 15oz mug, enamel camp mug, hardcover journal) with USD/EUR/GBP base costs and print specs.
+- **Shipping engine**: for a destination with a bundled hub (US, CA, UK, DE, FR, IT, ES, NL, AU, JP) it quotes local-production cost, carrier and 2-4 day transit (1-2 express). Other destinations get a cross-border quote (7-14 days). Each quote reports the saving versus a cross-border baseline.
+- **Margin engine**: base cost in the chosen currency plus shipping, channel fees (Etsy 6.5% transaction + 3% + $0.25 payment + listing fee; Shopify and direct checkout 2.9% + $0.30), net profit, margin %, break-even price and recommended price tiers, per channel.
+- **Artwork auditor**: pixel size and effective DPI against the product's recommended DPI (300 DPI = print ready).
+- **Order payload builder**: Gelato order JSON (`orderType`, references, currency by destination, shipping address, item with `productUid` and file URL).
+- **Shop info**: with `GELATO_API_KEY` set, verifies the key with `GET https://product.gelatoapis.com/v3/catalogs`. Without a key it returns `api_connected: false` and a configuration hint; it never fabricates account data.
 
----
+Catalog prices, hub lead times and shipping costs are bundled reference values for planning. Confirm current figures in your Gelato dashboard before pricing products.
 
-## 📖 What It Does
+## How It Works
 
-- **Localized 32-Country Production Routing**: Automatically routes manufacturing to the nearest facility in 32 nations (US, UK, Germany, France, Italy, Canada, Australia, Japan), slashing freight costs and cutting carbon emissions by up to 67%.
-- **Zero Customs Duties & Tariffs**: Eliminates European and UK import duties and VAT clearance delays by manufacturing directly within domestic trade borders.
-- **Multi-Currency Margin Simulator**: Full formula profit modeling across USD ($), EUR (€), and GBP (£) for Etsy, Shopify, and Direct transactions.
-- **Museum-Grade Print Auditor**: Validates image dimensions, 300+ DPI resolution, and bleed area tolerances (e.g. 3mm on Acrylic/Aluminum, 5mm on Wood Canvas).
-- **100% Free & Open-Access**: Zero paywalls, zero license locks, zero telemetry leaks.
+```text
+src/gelato_connector/
+├── catalog.py          # Bundled product reference data + slug lookup
+├── shipping_engine.py  # LOCAL_HUBS table (10 countries) and shipping quotes
+├── margin_engine.py    # Per-channel fees, net profit, break-even, price tiers
+├── artwork_auditor.py  # Effective DPI and print-readiness grade
+├── client.py           # Stdlib Gelato client (live only when GELATO_API_KEY is set) + order payload builder
+├── mcp_server.py       # MCP stdio server (JSON-RPC 2.0: initialize, tools/list, tools/call)
+├── server.py           # Loopback HTTP API + static workstation from public/
+└── cli.py              # `gelato-connector` entry point
+bin/gelato-connector       # Runs the CLI from a checkout without installing
+bin/gelato-connector-tui   # Terminal summary + benchmark of the real margin/shipping engines
+public/                    # Browser workstation (margin calculator, DPI auditor, hub table, payload builder)
+```
 
----
+The HTTP server binds to `127.0.0.1` unless you pass `--host` or set `ZOTH_BIND_HOST` to an IP literal, and rejects browser `POST` requests from non-local origins.
 
-## ⚙️ How It Works
-
-1. **Standalone Enclave (`127.0.0.1:8116`)**: Powered by `server.py` serving a dark-glassmorphic cockpit with live `/health`, `/api/stats`, `/api/products`, `/api/hubs`, `/api/margins`, and `/api/shipping` endpoints.
-2. **Zoth Studio v2 God-Mode Route**: Deeply integrated into the 77-Tool Sovereign Matrix at `/tools/gelato-connector`.
-3. **ZothOS CLI (`gelato-connector`)**: Native binary installed in `/usr/local/bin` and `~/.local/bin` for automated command-line audits and CI/CD pipelines.
-4. **Antigravity MCP Bridge**: Standard JSON-RPC 2.0 stdio server providing 6 autonomous tools for AI agents.
-
----
-
-## ⚡ 6 Model Context Protocol (MCP) Tools
-
-When registered in `~/.gemini/config/mcp_config.json`, Antigravity gains immediate access to:
-
-1. `gelato_search_catalog`: Search Gelato catalog products (acrylic glass, aluminum Dibond, framed canvas, organic tees, mugs, journals).
-2. `gelato_get_shipping_quote`: Calculate localized shipping rates, transit times, and duty savings across 32 countries.
-3. `gelato_calculate_margins`: Compute production costs, shipping, fees, net margins, and break-even prices in USD, EUR, or GBP.
-4. `gelato_audit_print_spec`: Audit artwork pixel resolution, aspect ratio, and bleed compliance.
-5. `gelato_create_order_payload`: Generate validated Gelato order creation payload.
-6. `gelato_get_shop_info`: Retrieve connected shop status and production capabilities.
-
----
-
-## 💻 ZothOS CLI & Server Commands
+## Install
 
 ```bash
-# Check status and health
-gelato-connector --status
-gelato-connector status
+git clone https://github.com/1nc0gn30/gelato-connector.git
+cd gelato-connector
+python3 -m pip install -e .
 
-# Output telemetry in JSON format
-gelato-connector --json
-
-# List localized catalog products
-gelato-connector catalog
-
-# Calculate shipping quote and transit time for Germany
-gelato-connector shipping --product acrylic_print_16x24 --country DE
-
-# Calculate multi-channel margins in EUR
-gelato-connector margins --product acrylic_print_16x24 --price 68.00 --currency EUR --country DE
-
-# Audit artwork resolution and bleed
-gelato-connector audit --product acrylic_print_16x24 --width 4800 --height 7200
-
-# Launch standalone workstation server on port 8116
-python3 server.py --port 8116
+# Start the workstation on http://127.0.0.1:8116
+python3 server.py --host 127.0.0.1 --port 8116
+# or, after installing:
+gelato-connector serve --port 8116
+# or, without installing:
+./bin/gelato-connector serve
 ```
 
----
+`npm start` runs the same `python3 server.py --host 127.0.0.1 --port 8116`.
 
-## ☕ Support 1nc0gn30 • NullAI & NullAI
+## Configuration
 
-Gelato Connector is 100% free, open-source, and sovereign software. If this tool brings you value, consider supporting our ongoing development:
-
-- **☕ Buy Us a Coffee (Stripe)**: [buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X](https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X)
-- **◎ Solana Tip Address**: `GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK`
-
----
-
-<div align="center">
-  <sub>Engineered by <b>1nc0gn30 • NullAI</b> (<a href="https://github.com/1nc0gn30">@1nc0gn30</a>) &bull; <a href="https://nullai.tech">NullAI Platform</a> &bull; <a href="https://zoth.nullai.tech">Zoth Studio v2</a></sub>
-</div>
-
----
-
-## 🏛️ ZothOS v3.4, Zoth Studio v2 & Obsidian Second Brain Ecosystem
-
-```mermaid
-flowchart LR
-    subgraph ZothOS["🐧 ZothOS v3.4 CLI & Braille TUI"]
-        CLI["gelato-connector --help / --json"]
-        TUI["gelato-connector-tui<br/>Unicode U+2800 2x4 Braille"]
-    end
-
-    subgraph Workstation["⚡ Sovereign Workstation"]
-        WEB["http://127.0.0.1:8116<br/>REST API & /health"]
-    end
-
-    subgraph Studio["🌌 Zoth Studio v2 & ZothOS-Lite"]
-        GODMODE["http://127.0.0.1:3000/tools/gelato-connector<br/>God-Mode Workstation"]
-        LITE["http://127.0.0.1:8145<br/>ZothOS-Lite Web Desktop"]
-    end
-
-    subgraph SecondBrain["💎 Obsidian Second Brain & STDP"]
-        TRACKER["http://127.0.0.1:8151<br/>Zoth Obsidian Tracker"]
-        NEURO["http://127.0.0.1:8094<br/>Neuro-Memory STDP Cortex"]
-        NOTE["Studio/Tools/Studio gelato-connector.md"]
-    end
-
-    CLI --> WEB
-    TUI --> WEB
-    WEB <--> GODMODE
-    WEB <--> LITE
-    WEB --> TRACKER
-    TRACKER <--> NOTE
-    NOTE <--> NEURO
-```
-
-### Cross-Surface Integration Matrix
-
-| Surface | Endpoint / Binary | Capabilities |
+| Variable | Required | Purpose |
 | :--- | :--- | :--- |
-| **Standalone Workstation** | `http://127.0.0.1:8116` | 100% Free & Open-Access Web Deck, live `/health` & REST telemetry |
-| **Zoth Studio v2 Route** | `http://127.0.0.1:3000/tools/gelato-connector` | Interactive God-Mode component inside Zoth Studio (`https://zoth.nullai.tech`) |
-| **ZothOS v3.4 CLI & TUI** | `gelato-connector` / `gelato-connector-tui` | Global binary in `/usr/local/bin/` with Unicode `U+2800` Braille TUI & `--json` output |
-| **ZothOS-Lite Web Desktop** | `http://127.0.0.1:8145` | Browser-native KDE-style window manager & terminal launcher |
-| **Zoth Obsidian Tracker** | `http://127.0.0.1:8151` | Interactive Obsidian Second Brain vault explorer (`~/Documents/Obsidian Vault/Studio/Tools/Studio gelato-connector.md`) |
-| **Neuro-Memory STDP Cortex** | `http://127.0.0.1:8094` | 3-Factor STDP synaptic memory daemon & 21-tool MCP server |
+| `GELATO_API_KEY` | No | Gelato API key (dashboard: Developer > API Keys). Enables live key verification and live catalog listing. |
+| `ZOTH_BIND_HOST` | No | IP literal to bind instead of `127.0.0.1`. |
+| `PORT` | No | Backend port used by the optional Electron shell (`electron/main.cjs`, default 8116). |
+
+## CLI Reference
 
 ```bash
-# Inspect CLI & Unicode U+2800 Braille TUI on ZothOS v3.4
 gelato-connector --help
-gelato-connector-tui --status
-gelato-connector-tui --json
+gelato-connector --version
+gelato-connector --json                  # status as JSON
+gelato-connector status [--json] [--port 8116]
+gelato-connector serve [--host 127.0.0.1] [--port 8116]
+gelato-connector mcp
+gelato-connector catalog [--category Apparel]
+gelato-connector shipping --product acrylic_print_16x24 --country DE [--express]
+gelato-connector margins --product acrylic_print_16x24 --price 68 --currency USD --country US
+gelato-connector audit --product acrylic_print_16x24 --width 4800 --height 7200 [--name art.png]
 
-# Verify Second Brain Vault & 12-Step Verification Gallery on :8151
-zoth-obsidian-tracker --verify
+gelato-connector-tui [--json] [--product acrylic_print_16x24] [--price 68] [--iterations 50]
 ```
 
+## MCP Reference
+
+```json
+{
+  "mcpServers": {
+    "gelato-connector": { "command": "gelato-connector", "args": ["mcp"] }
+  }
+}
+```
+
+| Tool | Description |
+| :--- | :--- |
+| `gelato_search_catalog` | Search the bundled catalog by keyword or category |
+| `gelato_get_shipping_quote` | Local-hub or cross-border shipping quote for a product and destination |
+| `gelato_calculate_margins` | Fees, net profit, margin and break-even for one channel and currency |
+| `gelato_audit_print_spec` | Effective DPI and print-readiness check |
+| `gelato_create_order_payload` | Gelato order JSON for a product, file URL and address |
+| `gelato_get_shop_info` | Live key verification, or `api_connected: false` with a configuration hint |
+
+## REST Reference
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/health`, `/api/health` | Status, version, bound port, `apiConfigured` |
+| `GET` | `/api/stats` | Product count and hub-country count |
+| `GET` | `/api/products[?category=]` | Product list |
+| `GET` | `/api/products/<id>` | Single product (404 if unknown) |
+| `GET` | `/api/hubs` | Bundled hub table |
+| `POST` | `/api/margins` | `{productId, retailPrice, currency, destinationCountry}` |
+| `POST` | `/api/shipping` | `{productId, destinationCountry, isExpress, quantity}` |
+| `POST` | `/api/audit` | `{productId, widthPx, heightPx, fileName}` |
+| `POST` | `/api/create-payload` | `{productId, imageUrl, recipientName, addressLine, city, country, postalCode}` |
+
+## Port
+
+`127.0.0.1:8116`, matching the `gelato-connector` entry in Zoth Studio v2 `tools.json`, and used as the default by `server.py`, the CLI, `package.json` scripts and `electron/main.cjs`. On ZothOS v3.4.0 the `gelato-connector` and `gelato-connector-tui` commands are installed to `/usr/local/bin/`. `pod-smart-router` (:8117) probes this connector at `127.0.0.1:8116` (`/health`, `/api/products`) when routing orders.
+
+## Testing
+
+```bash
+python3 -m pytest -q          # or: npm test
+gitleaks dir --no-banner .
+```
+
+Tests start the HTTP server on an ephemeral port (`port=0`) and make no external network calls.
+
+## License
+
+MIT. Copyright (c) 2026 [1nc0gn30](https://1nc0gn30.si) and [NullAI](https://nullai.tech). See [LICENSE](LICENSE).
+
+Free and open-source. Optional support: [Buy Us a Coffee (Stripe)](https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X).

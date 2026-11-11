@@ -8,7 +8,9 @@ from __future__ import annotations
 
 import json
 import sys
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
+
+from . import __version__
 from .artwork_auditor import audit_artwork
 from .catalog import GELATO_PRODUCTS, get_product, search_catalog
 from .client import GelatoClient
@@ -29,7 +31,7 @@ TOOLS: List[Dict[str, Any]] = [
     },
     {
         "name": "gelato_get_shipping_quote",
-        "description": "Calculate localized shipping rates, transit times, and duty savings across 32 countries (US, UK, DE, FR, IT, CA, AU, etc.).",
+        "description": "Calculate localized shipping rates, transit times, and duty savings across the 10 bundled hub countries (US, UK, DE, FR, IT, CA, AU, etc.).",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -79,7 +81,7 @@ TOOLS: List[Dict[str, Any]] = [
                 "product_id": {"type": "string", "description": "Gelato product ID or slug"},
                 "image_url": {"type": "string", "description": "Public HTTPS artwork URL"},
                 "recipient_name": {"type": "string", "description": "Customer name", "default": "Jane Doe"},
-                "address_line": {"type": "string", "description": "Street address", "default": "123 Sovereign Way"},
+                "address_line": {"type": "string", "description": "Street address", "default": "Example Street 1"},
                 "city": {"type": "string", "description": "City", "default": "Berlin"},
                 "country": {"type": "string", "description": "Country code", "default": "DE"},
                 "postal_code": {"type": "string", "description": "Postal code", "default": "10115"}
@@ -137,7 +139,7 @@ def handle_tool_call(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
             product_id=arguments["product_id"],
             image_url=arguments["image_url"],
             recipient_name=arguments.get("recipient_name", "Jane Doe"),
-            address_line=arguments.get("address_line", "123 Sovereign Way"),
+            address_line=arguments.get("address_line", "Example Street 1"),
             city=arguments.get("city", "Berlin"),
             country=arguments.get("country", "DE"),
             postal_code=arguments.get("postal_code", "10115")
@@ -149,43 +151,43 @@ def handle_tool_call(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
     raise ValueError(f"Unknown tool: {name}")
 
 
+def handle_request(req: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Dispatch one JSON-RPC 2.0 message. Returns None for notifications."""
+    req_id = req.get("id")
+    method = req.get("method")
+    if req_id is None and isinstance(method, str) and method.startswith("notifications/"):
+        return None
+    if method == "initialize":
+        return {"jsonrpc": "2.0", "id": req_id, "result": {
+            "protocolVersion": (req.get("params") or {}).get("protocolVersion", "2024-11-05"),
+            "capabilities": {"tools": {}},
+            "serverInfo": {"name": "gelato-connector", "version": __version__},
+        }}
+    if method == "ping":
+        return {"jsonrpc": "2.0", "id": req_id, "result": {}}
+    if method == "tools/list":
+        return {"jsonrpc": "2.0", "id": req_id, "result": {"tools": TOOLS}}
+    if method == "tools/call":
+        params = req.get("params") or {}
+        try:
+            result = handle_tool_call(params.get("name"), params.get("arguments") or {})
+            return {"jsonrpc": "2.0", "id": req_id, "result": {
+                "content": [{"type": "text", "text": json.dumps(result, indent=2)}]}}
+        except Exception as exc:  # tool-level failure is reported to the model, not as a protocol error
+            return {"jsonrpc": "2.0", "id": req_id, "result": {
+                "isError": True, "content": [{"type": "text", "text": f"{type(exc).__name__}: {exc}"}]}}
+    return {"jsonrpc": "2.0", "id": req_id, "error": {"code": -32601, "message": f"Method {method} not found"}}
+
+
 def run_mcp_server() -> None:
     """Run MCP JSON-RPC 2.0 stdio server loop."""
     for line in sys.stdin:
         if not line.strip():
             continue
         try:
-            req = json.loads(line)
-            req_id = req.get("id")
-            method = req.get("method")
-
-            if method == "tools/list":
-                resp = {"jsonrpc": "2.0", "id": req_id, "result": {"tools": TOOLS}}
-            elif method == "tools/call":
-                params = req.get("params", {})
-                name = params.get("name")
-                arguments = params.get("arguments", {})
-                result = handle_tool_call(name, arguments)
-                resp = {
-                    "jsonrpc": "2.0",
-                    "id": req_id,
-                    "result": {
-                        "content": [{"type": "text", "text": json.dumps(result, indent=2)}]
-                    }
-                }
-            else:
-                resp = {
-                    "jsonrpc": "2.0",
-                    "id": req_id,
-                    "error": {"code": -32601, "message": f"Method {method} not found"}
-                }
+            resp = handle_request(json.loads(line))
+        except json.JSONDecodeError as e:
+            resp = {"jsonrpc": "2.0", "id": None, "error": {"code": -32700, "message": f"Parse error: {e}"}}
+        if resp is not None:
             sys.stdout.write(json.dumps(resp) + "\n")
-            sys.stdout.flush()
-        except Exception as e:
-            err_resp = {
-                "jsonrpc": "2.0",
-                "id": None,
-                "error": {"code": -32000, "message": str(e)}
-            }
-            sys.stdout.write(json.dumps(err_resp) + "\n")
             sys.stdout.flush()

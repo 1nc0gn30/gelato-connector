@@ -4,7 +4,8 @@
   "description": "Autonomous zero-dependency Gelato Open API v2 connector, localized 32-country print routing optimizer, multi-currency margin engine, and Antigravity MCP suite.",
   "main": "public/gelato_app.js",
   "scripts": {
-    "serve": "python3 -m http.server 8116 --directory public",
+    "start": "python3 server.py --host 127.0.0.1 --port 8116",
+    "serve": "python3 -m http.server 8116 --bind 127.0.0.1 --directory public",
     "test": "pytest tests"
   },
   "author": "1nc0gn30 (@1nc0gn30)",
